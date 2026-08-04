@@ -414,18 +414,12 @@ export default function PricingPage() {
           </Reveal>
 
           <Reveal delay={200}>
-            <div className="mx-auto mt-12 flex max-w-lg flex-wrap items-center justify-center gap-x-12 gap-y-6 border-t border-white/10 pt-10">
+            <div className="mx-auto mt-12 flex max-w-lg flex-wrap items-center justify-center gap-x-16 gap-y-6 border-t border-white/10 pt-10">
               <div>
                 <div className="font-heading text-3xl font-semibold text-primary sm:text-4xl">
                   <AnimatedCounter value={PROJECT_TIERS.length} />
                 </div>
                 <p className="mt-1 text-sm text-white/50">Project types priced upfront</p>
-              </div>
-              <div>
-                <div className="font-heading text-3xl font-semibold text-primary sm:text-4xl">
-                  <AnimatedCounter value={Object.keys(REGION_META).length} />
-                </div>
-                <p className="mt-1 text-sm text-white/50">Currencies supported</p>
               </div>
               <div>
                 <div className="font-heading text-3xl font-semibold text-primary sm:text-4xl">
@@ -439,8 +433,25 @@ export default function PricingPage() {
       </section>
 
       {/* Project pricing by region */}
-      <section className="py-20 sm:py-24">
-        <div className="container">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        {/* Soft, blurred color fields behind the cards — reuses the same
+            blob-move keyframes GradientMesh uses on dark sections, toned
+            down for a light background. Without something colorful behind
+            them, the semi-transparent/backdrop-blur cards below would just
+            look like flat white boxes rather than actual glass. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -left-24 top-0 h-[420px] w-[420px] animate-blob-slow rounded-full bg-primary/[0.12] blur-[110px]" />
+          <div
+            className="absolute -right-24 top-1/3 h-[380px] w-[380px] animate-blob-slower rounded-full bg-emerald-300/[0.14] blur-[110px]"
+            style={{ animationDelay: "-6s" }}
+          />
+          <div
+            className="absolute bottom-0 left-1/3 h-[320px] w-[320px] animate-blob-slow rounded-full bg-primary/[0.08] blur-[100px]"
+            style={{ animationDelay: "-3s" }}
+          />
+        </div>
+
+        <div className="container relative">
           <Reveal>
             <SectionHeading
               eyebrow="Project Pricing"
@@ -457,10 +468,10 @@ export default function PricingPage() {
                 <Card
                   data-cursor="hover"
                   className={cn(
-                    "relative flex h-full flex-col overflow-hidden p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl",
+                    "relative flex h-full flex-col overflow-hidden border-white/60 bg-white/60 p-7 shadow-xl shadow-black/[0.03] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:bg-white/75 hover:shadow-2xl",
                     tier.featured
-                      ? "border-primary/60 shadow-lg shadow-primary/10 ring-1 ring-primary/60 hover:shadow-primary/20"
-                      : "border-border/70 hover:border-primary/30 hover:shadow-primary/10"
+                      ? "border-primary/50 ring-1 ring-primary/50 hover:shadow-primary/20"
+                      : "hover:border-primary/40 hover:shadow-primary/10"
                   )}
                 >
                   {tier.featured && (
