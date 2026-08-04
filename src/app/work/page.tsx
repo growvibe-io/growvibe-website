@@ -12,11 +12,36 @@ import { CaseStudyCard } from "@/components/case-study-card";
 import { LiveProjectCard } from "@/components/live-project-card";
 import { LightboxProvider, type LightboxImage } from "@/components/lightbox-provider";
 
+const siteUrl = "https://growvibe.io";
+
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
     "A look at GrowVibe's website, CRM, and AI project work, honestly labeled as concept, demo, or internal builds until real client case studies are ready to publish.",
   alternates: { canonical: "/work" },
+  openGraph: {
+    title: "Portfolio | GrowVibe",
+    description:
+      "A look at GrowVibe's website, CRM, and AI project work, honestly labeled as concept, demo, or internal builds until real client case studies are ready to publish.",
+    url: `${siteUrl}/work`,
+    siteName: "GrowVibe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio | GrowVibe",
+    description:
+      "A look at GrowVibe's website, CRM, and AI project work, honestly labeled as concept, demo, or internal builds until real client case studies are ready to publish.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/work` },
+  ],
 };
 
 // Honest, clearly-labeled project examples. We don't publish fictional
@@ -98,6 +123,11 @@ const LIVE_PROJECT_IMAGES: LightboxImage[] = LIVE_PROJECTS.map((p) => ({
 export default function WorkPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section className="border-b border-border bg-background">
         <div className="container py-20">
           <Reveal>

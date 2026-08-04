@@ -19,6 +19,8 @@ const FOOTER_LINKS = [
       { label: "Website Development", href: "/services#website-design" },
       { label: "Web Applications", href: "/services#web-applications" },
       { label: "CRM Development", href: "/services/crm-development" },
+      { label: "Real Estate Websites", href: "/real-estate" },
+      { label: "Dental Websites", href: "/dentist" },
       { label: "AI Solutions", href: "/#ai-solutions" },
       { label: "SEO", href: "/services#seo" },
       { label: "Paid Advertising", href: "/services#google-ppc" },
@@ -52,7 +54,13 @@ export function Footer() {
 
           {FOOTER_LINKS.map((col) => (
             <div key={col.title}>
-              <h4 className="text-sm font-semibold text-white">{col.title}</h4>
+              {/* h3, not h4: the last heading in each page's <main> content
+                  is an h2 (or an h3 nested under one), so this footer must
+                  continue at h3 to keep the document's heading order
+                  sequential — jumping straight to h4 here was flagged by
+                  Lighthouse's "Heading elements are not in a sequentially-
+                  descending order" accessibility/SEO audit on every page. */}
+              <h3 className="text-sm font-semibold text-white">{col.title}</h3>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
@@ -69,7 +77,7 @@ export function Footer() {
           ))}
 
           <div>
-            <h4 className="text-sm font-semibold text-white">Get in touch</h4>
+            <h3 className="text-sm font-semibold text-white">Get in touch</h3>
             <ul className="mt-4 space-y-3 text-sm text-white/50">
               <li>
                 <a
@@ -109,10 +117,10 @@ export function Footer() {
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-white/40 md:flex-row">
           <p>&copy; {new Date().getFullYear()} GrowVibe. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="/privacy" className="transition-colors hover:text-white">
               Privacy Policy
             </Link>
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="/terms" className="transition-colors hover:text-white">
               Terms of Service
             </Link>
           </div>

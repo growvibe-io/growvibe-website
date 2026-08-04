@@ -33,6 +33,13 @@ const SERVICES_MENU = [
       { href: "/services#ecommerce-development", label: "E-commerce Websites" },
       { href: "/services#landing-pages", label: "Landing Pages" },
       { href: "/services#website-maintenance", label: "Website Maintenance" },
+      // Real Estate and Dental have their own fully-built landing pages
+      // (unique metadata, FAQs, structured data) but, until now, no link
+      // anywhere in the site pointed to them — they were only reachable
+      // via sitemap.xml, a direct URL, or a paid ad. That orphaned them
+      // from internal link equity and from visitors browsing normally.
+      { href: "/real-estate", label: "Real Estate Websites" },
+      { href: "/dentist", label: "Dental Websites" },
     ],
   },
   {
@@ -68,7 +75,11 @@ const SERVICES_MENU = [
 const NAV_LINKS: { href: string; label: string; menu?: MenuKey }[] = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services", menu: "services" },
-  { href: "/pricing-australia", label: "Pricing" },
+  // /pricing is the general, indexable, worldwide pricing page. This is
+  // deliberately NOT /pricing-australia — that page is a fixed-INR,
+  // ads-traffic-only landing page (explicitly noindexed) and was only ever
+  // meant to be reached via a direct ad link, not from global navigation.
+  { href: "/pricing", label: "Pricing" },
   { href: "/work", label: "Portfolio" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },

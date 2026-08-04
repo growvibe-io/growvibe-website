@@ -15,6 +15,20 @@ export const metadata: Metadata = {
   description:
     "Practical guides on website development, AI automation, and SEO from the GrowVibe team — no fluff, written to actually help you decide and act.",
   alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Blog | GrowVibe",
+    description:
+      "Practical guides on website development, AI automation, and SEO from the GrowVibe team — no fluff, written to actually help you decide and act.",
+    url: `${siteUrl}/blog`,
+    siteName: "GrowVibe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | GrowVibe",
+    description:
+      "Practical guides on website development, AI automation, and SEO from the GrowVibe team — no fluff, written to actually help you decide and act.",
+  },
 };
 
 const breadcrumbSchema = {

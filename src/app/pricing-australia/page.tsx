@@ -42,6 +42,12 @@ export const metadata: Metadata = {
       "Fixed-price websites, e-commerce stores, custom CRMs and web apps for Indian businesses, built in Next.js at prices built for growing businesses.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing for Indian Businesses | GrowVibe",
+    description:
+      "Fixed-price websites, e-commerce stores, custom CRMs and web apps for Indian businesses, built in Next.js at prices built for growing businesses.",
+  },
 };
 
 const TRUST_CHIPS = [

@@ -195,6 +195,35 @@ const PRICING_TIERS: {
   },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Real Estate Website Design & Development",
+      item: `${siteUrl}/real-estate`,
+    },
+  ],
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Real Estate Website Design & Development",
+  name: "Real Estate Website Design & Development",
+  description:
+    "Premium, high-performance real estate websites for agencies, developers and property consultants — IDX/MLS integration, lead capture, CRM integration, and SEO-optimised, built to convert.",
+  provider: {
+    "@type": "Organization",
+    name: "GrowVibe",
+    url: siteUrl,
+  },
+  areaServed: ["United States", "Worldwide"],
+};
+
 const FAQ_ITEMS = [
   {
     question: "Do you integrate with IDX/MLS listing feeds?",
@@ -227,6 +256,19 @@ const FAQ_ITEMS = [
       "Yes. Every project includes free support after launch, and you can move onto an ongoing care plan for updates, monitoring, and content changes.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
 
 // ---------------------------------------------------------------------------
 // Illustrative "concept" project mockups — original layouts built from this
@@ -354,6 +396,22 @@ export default function RealEstatePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* 1. Hero — full-screen looping video background */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink text-white sm:min-h-screen">
         <video

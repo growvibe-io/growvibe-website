@@ -213,6 +213,7 @@ export function Hero() {
                   width={900}
                   height={650}
                   className="absolute inset-0 brightness-[0.55]"
+                  priority
                 />
                 <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3 sm:px-5 sm:py-4">
                   <div className="flex items-center gap-1.5">

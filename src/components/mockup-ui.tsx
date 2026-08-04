@@ -39,18 +39,26 @@ export function Photo({
   width = 480,
   height = 320,
   className = "",
+  priority = false,
 }: {
   seed: string;
   width?: number;
   height?: number;
   className?: string;
+  /** Set true for above-the-fold usages (e.g. the homepage hero). Skips
+   * `loading="lazy"` and asks the browser to fetch it first — lazy-loading
+   * an image that's visible on first paint just delays it and can hurt
+   * Largest Contentful Paint, which is exactly what PageSpeed Insights
+   * flagged for the hero's mockup photo on growvibe.io. */
+  priority?: boolean;
 }) {
   return (
     <img
       src={`https://picsum.photos/seed/${seed}/${width}/${height}`}
       alt=""
       draggable={false}
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : "auto"}
       className={`h-full w-full bg-secondary object-cover ${className}`}
     />
   );

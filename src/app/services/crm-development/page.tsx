@@ -69,14 +69,28 @@ import type { ServiceItem } from "@/lib/services-data";
 // illustration. The live demo links themselves are handled by
 // <CrmDemoPicker /> (src/components/crm-demo-picker.tsx), which now offers
 // both the General CRM and the new Subcontractor CRM.
+const siteUrl = "https://growvibe.io";
+
 export const metadata: Metadata = {
   title: "CRM Development",
   description:
     "Custom, AI-powered CRM development for healthcare, real estate, construction, law firms, e-commerce, and agencies — see the real product, not a mockup.",
   alternates: { canonical: "/services/crm-development" },
+  openGraph: {
+    title: "CRM Development | GrowVibe",
+    description:
+      "Custom, AI-powered CRM development for healthcare, real estate, construction, law firms, e-commerce, and agencies — see the real product, not a mockup.",
+    url: `${siteUrl}/services/crm-development`,
+    siteName: "GrowVibe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CRM Development | GrowVibe",
+    description:
+      "Custom, AI-powered CRM development for healthcare, real estate, construction, law firms, e-commerce, and agencies — see the real product, not a mockup.",
+  },
 };
-
-const siteUrl = "https://growvibe.io";
 
 // Industry-tailored CRM builds. Shaped as ServiceItem so we can reuse the
 // exact same <ServiceCard> visual language as the main /services page —

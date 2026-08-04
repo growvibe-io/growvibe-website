@@ -7,11 +7,36 @@ import { Reveal } from "@/components/reveal";
 import { ContactForm } from "@/components/contact-form";
 import { SITE_PHONE, SITE_PHONE_INDIA } from "@/lib/site-config";
 
+const siteUrl = "https://growvibe.io";
+
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
     "Get in touch with GrowVibe to start your website, CRM, or AI project, or request a custom quote for your business.",
   alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact Us | GrowVibe",
+    description:
+      "Get in touch with GrowVibe to start your website, CRM, or AI project, or request a custom quote for your business.",
+    url: `${siteUrl}/contact`,
+    siteName: "GrowVibe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us | GrowVibe",
+    description:
+      "Get in touch with GrowVibe to start your website, CRM, or AI project, or request a custom quote for your business.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "Contact Us", item: `${siteUrl}/contact` },
+  ],
 };
 
 // Only real, verifiable contact details — no placeholder street address.
@@ -57,6 +82,11 @@ export default function ContactPage({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section className="border-b border-border bg-background">
         <div className="container py-20 text-center">
           <Reveal>

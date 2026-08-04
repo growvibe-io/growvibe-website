@@ -15,14 +15,28 @@ import { ServiceCard } from "@/components/services/service-card";
 import { ServiceFeatureCard } from "@/components/services/service-feature-card";
 import { SERVICE_CATEGORIES, getAllServices } from "@/lib/services-data";
 
+const siteUrl = "https://growvibe.io";
+
 export const metadata: Metadata = {
   title: "Services",
   description:
     "GrowVibe's full range of services: website design, WordPress, Next.js, React, and Node.js development, CRM development, AI solutions and automation, plus SEO, Google Ads, Meta Ads, and content marketing.",
   alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services | GrowVibe",
+    description:
+      "GrowVibe's full range of services: website design, WordPress, Next.js, React, and Node.js development, CRM development, AI solutions and automation, plus SEO, Google Ads, Meta Ads, and content marketing.",
+    url: `${siteUrl}/services`,
+    siteName: "GrowVibe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | GrowVibe",
+    description:
+      "GrowVibe's full range of services: website design, WordPress, Next.js, React, and Node.js development, CRM development, AI solutions and automation, plus SEO, Google Ads, Meta Ads, and content marketing.",
+  },
 };
-
-const siteUrl = "https://growvibe.io";
 const allServices = getAllServices();
 
 const breadcrumbSchema = {

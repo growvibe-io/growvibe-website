@@ -127,6 +127,35 @@ const PROCESS_STEPS = [
   },
 ];
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Dental Website Design & Development",
+      item: `${siteUrl}/dentist`,
+    },
+  ],
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Dental Website Design & Development",
+  name: "Dental Website Design & Development",
+  description:
+    "Premium, high-converting dental websites that help clinics attract new patients, increase appointment bookings, improve local SEO, and automate enquiries with AI.",
+  provider: {
+    "@type": "Organization",
+    name: "GrowVibe",
+    url: siteUrl,
+  },
+  areaServed: ["United States", "Worldwide"],
+};
+
 const FAQ_ITEMS = [
   {
     question: "How long does a dental website take?",
@@ -154,6 +183,19 @@ const FAQ_ITEMS = [
       "Yes. We can improve the design, speed, mobile experience, and conversion flow of an existing dental website, and migrate your existing content and photos across.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
 
 // ---------------------------------------------------------------------------
 // Illustrative "concept" portfolio previews — original layouts built from
@@ -309,6 +351,22 @@ const CONCEPT_PROJECTS = [
 export default function DentistPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* 1. Hero — full-screen looping video background */}
       <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink text-white sm:min-h-screen">
         <video

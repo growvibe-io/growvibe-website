@@ -11,11 +11,36 @@ import { Magnetic } from "@/components/magnetic";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { SectionHeading } from "@/components/section-heading";
 
+const siteUrl = "https://growvibe.io";
+
 export const metadata: Metadata = {
   title: "About Us",
   description:
     "Learn about GrowVibe, a website development and AI solutions company, and the team behind our clients' websites, CRM systems, and results.",
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Us | GrowVibe",
+    description:
+      "Learn about GrowVibe, a website development and AI solutions company, and the team behind our clients' websites, CRM systems, and results.",
+    url: `${siteUrl}/about`,
+    siteName: "GrowVibe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | GrowVibe",
+    description:
+      "Learn about GrowVibe, a website development and AI solutions company, and the team behind our clients' websites, CRM systems, and results.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "About Us", item: `${siteUrl}/about` },
+  ],
 };
 
 const VALUES = [
@@ -78,6 +103,11 @@ const TEAM = [
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <section className="border-b border-border bg-background">
         <div className="container py-20 text-center">
           <Reveal>
