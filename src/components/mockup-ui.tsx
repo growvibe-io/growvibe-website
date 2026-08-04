@@ -40,6 +40,7 @@ export function Photo({
   height = 320,
   className = "",
   priority = false,
+  alt = "",
 }: {
   seed: string;
   width?: number;
@@ -51,11 +52,17 @@ export function Photo({
    * Largest Contentful Paint, which is exactly what PageSpeed Insights
    * flagged for the hero's mockup photo on growvibe.io. */
   priority?: boolean;
+  /** Defaults to "" (decorative, matches every existing usage of this
+   * component — mockups, avatars, thumbnails that are purely illustrative).
+   * Pass a real, descriptive string for usages where the image conveys
+   * actual content, e.g. blog post featured images, so it's meaningful to
+   * screen readers and gets real SEO credit instead of being skipped. */
+  alt?: string;
 }) {
   return (
     <img
       src={`https://picsum.photos/seed/${seed}/${width}/${height}`}
-      alt=""
+      alt={alt}
       draggable={false}
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}

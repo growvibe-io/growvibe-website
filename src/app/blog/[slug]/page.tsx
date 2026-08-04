@@ -10,6 +10,7 @@ import { Reveal } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { ArticleBody } from "@/components/blog/article-body";
+import { Photo } from "@/components/mockup-ui";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog-data";
 
 const siteUrl = "https://growvibe.io";
@@ -32,6 +33,35 @@ const RELATED_SERVICES: Record<string, { label: string; href: string }[]> = {
     { label: "AI-Powered SEO", href: "/services#ai-powered-seo" },
     { label: "Google Ads", href: "/services#google-ppc" },
   ],
+  "business-website-cost-2026": [
+    { label: "Website Design", href: "/website-design" },
+    { label: "Pricing", href: "/pricing" },
+  ],
+  "wordpress-vs-nextjs-for-business-websites": [
+    { label: "Website Design", href: "/website-design" },
+    { label: "Next.js Development", href: "/services#nextjs-development" },
+    { label: "WordPress Development", href: "/services#wordpress-development" },
+  ],
+  "website-not-generating-leads": [
+    { label: "Website Design", href: "/website-design" },
+    { label: "Custom CRM Development", href: "/services/crm-development" },
+    { label: "SEO", href: "/services#seo" },
+  ],
+  "business-website-features-checklist": [
+    { label: "Website Design", href: "/website-design" },
+    { label: "Pricing", href: "/pricing" },
+  ],
+  "real-estate-website-design-guide": [
+    { label: "Real Estate Websites", href: "/real-estate" },
+    { label: "Custom CRM Development", href: "/services/crm-development" },
+  ],
+  "dental-website-design-guide": [
+    { label: "Dental Websites", href: "/dentist" },
+  ],
+  "what-is-a-custom-crm": [
+    { label: "Custom CRM Development", href: "/services/crm-development" },
+    { label: "Pricing", href: "/pricing" },
+  ],
 };
 
 export function generateStaticParams() {
@@ -49,13 +79,14 @@ export function generateMetadata({
   }
 
   const url = `${siteUrl}/blog/${post.slug}`;
+  const seoTitle = post.seoTitle ?? post.title;
   return {
-    title: post.title,
+    title: seoTitle,
     description: post.description,
     keywords: post.keywords,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title: post.title,
+      title: seoTitle,
       description: post.description,
       url,
       siteName: "GrowVibe",
@@ -64,7 +95,7 @@ export function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title: seoTitle,
       description: post.description,
     },
   };
@@ -175,6 +206,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </div>
           </Reveal>
 
+          {post.heroImage && (
+            <Reveal delay={50} className="mt-8">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-border">
+                <Photo
+                  seed={post.heroImage.seed}
+                  width={1200}
+                  height={675}
+                  alt={post.heroImage.alt}
+                  className="absolute inset-0"
+                  priority
+                />
+              </div>
+            </Reveal>
+          )}
+
           <Reveal delay={100} className="mt-10">
             <ArticleBody blocks={post.body} />
           </Reveal>
@@ -218,12 +264,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </h2>
               <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/60">
                 We&apos;re happy to talk it through directly — no generic
-                sales pitch, just a straight answer.
+                sales pitch, just a straight answer. Tell us about your
+                project and we&apos;ll get back to you with real next steps.
               </p>
               <Magnetic className="mt-6 inline-flex">
                 <Button size="lg" asChild>
                   <Link href="/contact">
-                    Contact Us
+                    Request a Free Consultation
                     <ArrowUpRight className="ml-1.5 h-4 w-4" />
                   </Link>
                 </Button>
