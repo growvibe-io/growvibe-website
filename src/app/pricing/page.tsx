@@ -11,6 +11,7 @@ import {
   Globe2,
   Bot,
   LayoutDashboard,
+  Sparkles,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -22,6 +23,8 @@ import { Stagger, StaggerItem } from "@/components/stagger";
 import { Magnetic } from "@/components/magnetic";
 import { SectionHeading } from "@/components/section-heading";
 import { FaqAccordion } from "@/components/faq-accordion";
+import { GradientMesh } from "@/components/gradient-mesh";
+import { AnimatedCounter } from "@/components/animated-counter";
 
 const siteUrl = "https://growvibe.io";
 
@@ -357,29 +360,80 @@ export default function PricingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Hero */}
-      <section className="border-b border-border bg-background">
-        <div className="container py-20 text-center">
+      {/* Hero — same dark / dot-grid / GradientMesh / stats-row pattern used
+          on the CRM Development and Website Design hero sections, so this
+          page matches the site's other "premium" heroes instead of
+          standing out as a plain, flat one. */}
+      <section className="relative overflow-hidden bg-ink pb-16 pt-20 text-white sm:pb-20 sm:pt-24">
+        <div className="absolute inset-0 bg-dot-grid opacity-[0.12]" />
+        <GradientMesh />
+
+        <div className="container relative text-center">
           <Reveal>
-            <Badge variant="accent" className="mb-6">
+            <Badge variant="dark" className="mb-6">
+              <Sparkles className="mr-1.5 h-3 w-3 text-primary" />
               Pricing
             </Badge>
-            <h1 className="mx-auto max-w-2xl font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h1 className="mx-auto max-w-3xl font-heading text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Real starting prices, in your currency
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60">
               Below are real starting prices for {regionLabel}, shown in{" "}
               {REGION_META[region].currencyLabel}. Beyond these four core
               project types, every quote is fixed, written, and agreed
               before we start — no hourly billing, no surprises.
             </p>
-            <p className="mx-auto mt-3 max-w-2xl text-xs text-muted-foreground">
+          </Reveal>
+
+          <Reveal delay={100}>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Magnetic>
+                <Button size="lg" variant="light" asChild>
+                  <Link href="/contact?intent=quote">
+                    Get a Custom Quote
+                    <ArrowUpRight className="ml-1.5 h-4 w-4" />
+                  </Link>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button size="lg" variant="outlineLight" asChild>
+                  <Link href="/services">View All Services</Link>
+                </Button>
+              </Magnetic>
+            </div>
+          </Reveal>
+
+          <Reveal delay={160}>
+            <p className="mx-auto mt-6 max-w-2xl text-xs text-white/40">
               Pricing shown for {regionLabel} based on your location.{" "}
-              <Link href="/contact" className="underline underline-offset-2 hover:text-foreground">
+              <Link href="/contact" className="underline underline-offset-2 hover:text-white/70">
                 Contact us
               </Link>{" "}
               if that isn&apos;t right and we&apos;ll quote you correctly.
             </p>
+          </Reveal>
+
+          <Reveal delay={200}>
+            <div className="mx-auto mt-12 flex max-w-lg flex-wrap items-center justify-center gap-x-12 gap-y-6 border-t border-white/10 pt-10">
+              <div>
+                <div className="font-heading text-3xl font-semibold text-primary sm:text-4xl">
+                  <AnimatedCounter value={PROJECT_TIERS.length} />
+                </div>
+                <p className="mt-1 text-sm text-white/50">Project types priced upfront</p>
+              </div>
+              <div>
+                <div className="font-heading text-3xl font-semibold text-primary sm:text-4xl">
+                  <AnimatedCounter value={Object.keys(REGION_META).length} />
+                </div>
+                <p className="mt-1 text-sm text-white/50">Currencies supported</p>
+              </div>
+              <div>
+                <div className="font-heading text-3xl font-semibold text-primary sm:text-4xl">
+                  <AnimatedCounter value={100} suffix="%" />
+                </div>
+                <p className="mt-1 text-sm text-white/50">Fixed price, in writing</p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -403,10 +457,18 @@ export default function PricingPage() {
                 <Card
                   data-cursor="hover"
                   className={cn(
-                    "flex h-full flex-col p-7",
-                    tier.featured && "border-primary/60 shadow-lg shadow-primary/10 ring-1 ring-primary/60"
+                    "relative flex h-full flex-col overflow-hidden p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl",
+                    tier.featured
+                      ? "border-primary/60 shadow-lg shadow-primary/10 ring-1 ring-primary/60 hover:shadow-primary/20"
+                      : "border-border/70 hover:border-primary/30 hover:shadow-primary/10"
                   )}
                 >
+                  {tier.featured && (
+                    <div
+                      aria-hidden
+                      className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-primary/70 to-primary"
+                    />
+                  )}
                   {tier.tag && (
                     <Badge variant="accent" className="mb-4 w-fit">
                       {tier.tag}
@@ -448,21 +510,22 @@ export default function PricingPage() {
       <section className="bg-secondary/40 py-20 sm:py-24">
         <div className="container">
           <Reveal>
-            <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
-                Keep it running — care plans
-              </h2>
-              <p className="mt-3 text-muted-foreground">
-                A website is not a one-off purchase. Things break, plugins expire, security patches land.
-                Pick a plan and stop thinking about it.
-              </p>
-            </div>
+            <SectionHeading
+              eyebrow="Care Plans"
+              title="Keep it running after launch"
+              description="A website is not a one-off purchase. Things break, plugins expire, security patches land. Pick a plan and stop thinking about it."
+              align="center"
+              className="mx-auto"
+            />
           </Reveal>
 
           <Stagger className="mx-auto mt-14 grid max-w-2xl grid-cols-1 gap-5 sm:grid-cols-2">
             {CARE_PLANS_IN.map((plan) => (
               <StaggerItem key={plan.title}>
-                <Card className="flex h-full flex-col p-7">
+                <Card
+                  data-cursor="hover"
+                  className="flex h-full flex-col border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                >
                   <h3 className="font-heading text-lg font-semibold">{plan.title}</h3>
                   <div className="mt-2 font-heading text-2xl font-semibold tracking-tight">
                     {isIndia ? plan.price : (
@@ -500,16 +563,22 @@ export default function PricingPage() {
       <section className="py-20 sm:py-24">
         <div className="container">
           <Reveal>
-            <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">Add-ons</h2>
-              <p className="mt-3 text-muted-foreground">Bolt these onto any project.</p>
-            </div>
+            <SectionHeading
+              eyebrow="Add-ons"
+              title="Bolt these onto any project"
+              description="Optional extras that layer onto any of the project types above."
+              align="center"
+              className="mx-auto"
+            />
           </Reveal>
 
           <Stagger className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {ADD_ONS_IN.map((addon) => (
               <StaggerItem key={addon.title}>
-                <Card className="flex h-full flex-col p-6">
+                <Card
+                  data-cursor="hover"
+                  className="flex h-full flex-col border-border/70 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                >
                   <h3 className="font-heading text-base font-semibold">{addon.title}</h3>
                   <div className="mt-3 font-heading text-xl font-semibold text-primary">
                     {isIndia ? addon.price : "Contact us for pricing"}
@@ -654,6 +723,7 @@ export default function PricingPage() {
         <Reveal>
           <div className="avoid-print-break relative overflow-hidden rounded-2xl bg-ink px-8 py-16 text-center text-white sm:px-16">
             <div className="absolute inset-0 bg-dot-grid opacity-[0.1]" />
+            <GradientMesh className="opacity-60" />
             <div className="relative">
               <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
                 Ready to get a real number?
