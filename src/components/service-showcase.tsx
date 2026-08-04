@@ -791,19 +791,26 @@ export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 What we do
               </div>
-              <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-                Website Development, AI Solutions &amp; Digital Growth
-              </h2>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-                Six core capabilities, run by specialists who obsess over your results as much as
-                you do. Explore the full breakdown on our services page.
-              </p>
 
-              {/* Dynamic: swaps to describe whichever card is currently
-                  pinned on the left as the visitor scrolls. Desktop-only
-                  (hidden below `lg`) since it's tied to the sticky-stack
-                  effect, which only happens at that breakpoint. */}
-              <div className="mt-8 hidden border-t border-border pt-8 lg:block">
+              {/* Static intro — shown on mobile/tablet only, where cards
+                  aren't sticky-stacked so there's no "currently pinned"
+                  card to sync the headline to. */}
+              <div className="lg:hidden">
+                <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                  Website Development, AI Solutions &amp; Digital Growth
+                </h2>
+                <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+                  Six core capabilities, run by specialists who obsess over your results as much as
+                  you do. Explore the full breakdown on our services page.
+                </p>
+              </div>
+
+              {/* Dynamic headline + description — desktop only. The
+                  headline itself (not just a secondary blurb) swaps to
+                  describe whichever card is currently pinned on the left
+                  as the visitor scrolls, since the sticky-stack effect
+                  that drives this only happens at `lg` and up. */}
+              <div className="hidden lg:block">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeItem.title}
@@ -815,10 +822,10 @@ export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
                     <Badge variant="accent" className="w-fit">
                       {activeItem.category}
                     </Badge>
-                    <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight">
+                    <h2 className="mt-3 font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
                       {activeItem.title}
-                    </h3>
-                    <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+                    </h2>
+                    <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
                       {activeItem.description}
                     </p>
                     <Link
