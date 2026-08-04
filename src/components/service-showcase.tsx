@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -639,15 +639,20 @@ function ServiceCard({
   item,
   index,
   isLast,
+  cardRef,
 }: {
   item: ServiceShowcaseItem;
   index: number;
   isLast: boolean;
+  /** Registers this card's sticky wrapper DOM node so ServiceShowcase can
+   *  measure it on scroll and work out which card is currently pinned. */
+  cardRef: (el: HTMLDivElement | null) => void;
 }) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.div
+      ref={cardRef}
       initial={shouldReduceMotion ? undefined : { opacity: 0.85, scale: 0.98, y: 24 }}
       whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, amount: 0.35 }}
@@ -717,6 +722,47 @@ function ServiceCard({
  * continues scrolling naturally into the next section.
  */
 export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const cardEls = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  // Track which card is currently pinned so the right-side description can
+  // switch to describe that service. Read-only: this only measures scroll
+  // position on each frame, it never calls preventDefault() or otherwise
+  // touches scrolling itself, so normal vertical scroll is untouched. Only
+  // runs at `lg` and up, since cards aren't sticky/stacked below that.
+  React.useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+    if (!mql.matches) return;
+
+    const STICKY_OFFSET = 130; // a few px past the cards' `lg:top-[120px]`
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      let next = 0;
+      for (let i = 0; i < cardEls.current.length; i++) {
+        const el = cardEls.current[i];
+        if (el && el.getBoundingClientRect().top <= STICKY_OFFSET) next = i;
+      }
+      setActiveIndex(next);
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [items.length]);
+
+  const activeItem = items[activeIndex] ?? items[0];
+
   return (
     <section id="services" className="scroll-mt-28 py-20 sm:py-28">
       <div className="container">
@@ -727,7 +773,15 @@ export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
         <div className="flex flex-col lg:grid lg:grid-cols-[58%_42%] lg:items-start lg:gap-x-12 xl:gap-x-16">
           <div className="order-2 lg:order-none">
             {items.map((item, i) => (
-              <ServiceCard key={item.title} item={item} index={i} isLast={i === items.length - 1} />
+              <ServiceCard
+                key={item.title}
+                item={item}
+                index={i}
+                isLast={i === items.length - 1}
+                cardRef={(el) => {
+                  cardEls.current[i] = el;
+                }}
+              />
             ))}
           </div>
 
@@ -744,6 +798,41 @@ export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
                 Six core capabilities, run by specialists who obsess over your results as much as
                 you do. Explore the full breakdown on our services page.
               </p>
+
+              {/* Dynamic: swaps to describe whichever card is currently
+                  pinned on the left as the visitor scrolls. Desktop-only
+                  (hidden below `lg`) since it's tied to the sticky-stack
+                  effect, which only happens at that breakpoint. */}
+              <div className="mt-8 hidden border-t border-border pt-8 lg:block">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeItem.title}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <Badge variant="accent" className="w-fit">
+                      {activeItem.category}
+                    </Badge>
+                    <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight">
+                      {activeItem.title}
+                    </h3>
+                    <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+                      {activeItem.description}
+                    </p>
+                    <Link
+                      href={activeItem.href}
+                      data-cursor="hover"
+                      className="group mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary"
+                    >
+                      Learn More
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </Link>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
               <div className="mt-8">
                 <Magnetic>
                   <Button variant="default" size="lg" asChild>
