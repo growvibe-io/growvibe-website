@@ -112,7 +112,8 @@ html.custom-cursor-active * {
   .animate-blob-slower,
   .animate-marquee,
   .animate-float,
-  .animate-float-icon {
+  .animate-float-icon,
+  .animate-shine {
     animation: none !important;
   }
 }

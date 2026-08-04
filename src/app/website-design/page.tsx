@@ -56,6 +56,8 @@ import { Stagger, StaggerItem } from "@/components/stagger";
 import { Magnetic } from "@/components/magnetic";
 import { SectionHeading } from "@/components/section-heading";
 import { GradientMesh } from "@/components/gradient-mesh";
+import { Typewriter } from "@/components/typewriter";
+import { AiChatMockup } from "@/components/ai-chat-mockup";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { BrowserFrame } from "@/components/browser-frame";
 import { LightboxProvider, type LightboxImage } from "@/components/lightbox-provider";
@@ -90,6 +92,80 @@ export const metadata: Metadata = {
 // ---------------------------------------------------------------------------
 // Data
 // ---------------------------------------------------------------------------
+
+// Rotating capability line under the hero H1 — short, scannable phrases
+// only (kept brief so the typewriter cycle stays quick to read).
+const HERO_CAPABILITIES = [
+  "AI Chatbots for Customer Support",
+  "Premium Custom UI/UX Design",
+  "Next.js & React Websites",
+  "WordPress Websites",
+  "Custom CRM Systems",
+  "AI Business Automation",
+  "SEO & Google Ads",
+];
+
+// Small floating feature badges around the hero's AI chat mockup. Position
+// classes are per-badge (not a grid) so they can sit at different corners
+// of the mockup; most are lg+ only, and two are xl+ only, so they never
+// crowd the copy column on narrower desktop widths.
+const HERO_FLOATING_BADGES: {
+  emoji: string;
+  label: string;
+  position: string;
+  visibility: string;
+  floatDelay: string;
+  revealDelay: number;
+}[] = [
+  {
+    emoji: "🤖",
+    label: "AI Lead Qualification",
+    position: "-top-5 -left-6",
+    visibility: "hidden lg:block",
+    floatDelay: "0s",
+    revealDelay: 500,
+  },
+  {
+    emoji: "💬",
+    label: "24/7 AI Support",
+    position: "-top-7 -right-4",
+    visibility: "hidden lg:block",
+    floatDelay: "0.6s",
+    revealDelay: 600,
+  },
+  {
+    emoji: "📈",
+    label: "SEO Ready",
+    position: "top-1/2 -left-14 -translate-y-1/2",
+    visibility: "hidden xl:block",
+    floatDelay: "1.2s",
+    revealDelay: 700,
+  },
+  {
+    emoji: "⚡",
+    label: "Lightning Fast",
+    position: "top-1/4 -right-14",
+    visibility: "hidden xl:block",
+    floatDelay: "1.8s",
+    revealDelay: 800,
+  },
+  {
+    emoji: "📅",
+    label: "Appointment Booking",
+    position: "-bottom-6 -left-4",
+    visibility: "hidden lg:block",
+    floatDelay: "2.4s",
+    revealDelay: 900,
+  },
+  {
+    emoji: "📊",
+    label: "CRM Integration",
+    position: "-bottom-7 -right-6",
+    visibility: "hidden lg:block",
+    floatDelay: "3s",
+    revealDelay: 1000,
+  },
+];
 
 const WHY_CHOOSE: { icon: LucideIcon; title: string; description: string }[] = [
   {
@@ -689,76 +765,117 @@ export default function WebsiteDesignPage() {
       />
 
       {/* 1. Hero */}
-      <section className="relative overflow-hidden bg-ink pb-32 pt-20 text-white sm:pb-44 sm:pt-24">
+      <section className="relative overflow-hidden bg-ink pb-20 pt-20 text-white sm:pb-24 sm:pt-24">
         <div className="absolute inset-0 bg-dot-grid opacity-[0.12]" />
         <GradientMesh />
 
-        <div className="container relative text-center">
-          <Reveal>
-            <Badge variant="dark" className="mb-6">
-              <Sparkles className="mr-1.5 h-3 w-3 text-primary" />
-              Website Design &amp; Development
-            </Badge>
-            <h1 className="mx-auto max-w-3xl font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-              Premium Websites Built to Grow Your Business
-            </h1>
-          </Reveal>
+        <div className="container relative">
+          <div className="lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 xl:gap-16">
+            {/* Left: copy */}
+            <div>
+              <Reveal>
+                <Badge variant="dark" className="mb-6">
+                  <span className="relative mr-1.5 flex h-3 w-3 flex-shrink-0 items-center justify-center">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60" />
+                    <Sparkles className="relative h-3 w-3 text-primary" />
+                  </span>
+                  Website Design &amp; Development
+                </Badge>
+                <h1 className="max-w-3xl font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
+                  Premium Websites Built to{" "}
+                  <span className="bg-gradient-to-r from-primary via-white to-primary bg-[length:200%_100%] bg-clip-text text-transparent animate-shine">
+                    Grow Your Business
+                  </span>
+                </h1>
+              </Reveal>
 
-          <Reveal delay={80}>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60">
-              We design and build premium, high-performance websites that make your business look
-              credible, load fast, and turn visitors into real enquiries — for businesses across the
-              United States, India, and beyond.
-            </p>
-          </Reveal>
+              <Reveal delay={80}>
+                <p className="mt-5 min-h-[1.6em] max-w-xl font-heading text-lg font-semibold text-primary sm:text-xl">
+                  <Typewriter words={HERO_CAPABILITIES} />
+                </p>
+              </Reveal>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Reveal delay={160}>
-              <Magnetic>
-                <Button
-                  size="lg"
-                  variant="light"
-                  asChild
-                  className="shadow-[0_0_0_0_rgba(28,160,102,0)] transition-shadow duration-300 hover:shadow-[0_0_24px_4px_rgba(28,160,102,0.35)]"
+              <Reveal delay={140}>
+                <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/60">
+                  We design and build premium, high-performance websites that make your business look
+                  credible, load fast, and turn visitors into real enquiries — for businesses across the
+                  United States, India, and beyond.
+                </p>
+              </Reveal>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Reveal delay={200}>
+                  <Magnetic>
+                    <Button
+                      size="lg"
+                      variant="light"
+                      asChild
+                      className="shadow-[0_0_0_0_rgba(28,160,102,0)] transition-shadow duration-300 hover:shadow-[0_0_24px_4px_rgba(28,160,102,0.35)]"
+                    >
+                      <Link href="/contact?intent=quote" data-track="consultation-cta-click">
+                        Request a Free Consultation
+                        <ArrowUpRight className="ml-1.5 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </Magnetic>
+                </Reveal>
+                <Reveal delay={260}>
+                  <Magnetic>
+                    <Button size="lg" variant="outlineLight" asChild>
+                      <Link href="/work">
+                        <PlayCircle className="mr-1.5 h-4 w-4" />
+                        View Our Work
+                      </Link>
+                    </Button>
+                  </Magnetic>
+                </Reveal>
+              </div>
+
+              <Reveal delay={320}>
+                <p className="mt-8 text-sm text-white/40">
+                  Serving businesses worldwide • USA &amp; India registered
+                </p>
+              </Reveal>
+            </div>
+
+            {/* Right: animated "GrowVibe AI" browser mockup, with floating
+                feature badges around it — replaces the previous static
+                homepage screenshot with something that shows the AI
+                capability instead of just describing it. */}
+            <div className="relative mx-auto mt-16 w-full max-w-md lg:mx-0 lg:mt-0 lg:max-w-none">
+              <div
+                aria-hidden
+                className="absolute -inset-10 -z-10 rounded-full bg-primary/20 blur-3xl"
+              />
+
+              <Reveal delay={220} scale>
+                <MockupChrome floating url="growvibe.io/ai-assistant" className="mx-auto max-w-md lg:max-w-none">
+                  <AiChatMockup />
+                </MockupChrome>
+              </Reveal>
+              <p className="mt-4 text-center text-xs text-white/40">
+                A scripted preview of GrowVibe AI — not a live conversation.
+              </p>
+
+              {HERO_FLOATING_BADGES.map((badge) => (
+                <Reveal
+                  key={badge.label}
+                  delay={badge.revealDelay}
+                  className={cn("absolute z-10", badge.visibility, badge.position)}
                 >
-                  <Link href="/contact?intent=quote" data-track="consultation-cta-click">
-                    Request a Free Consultation
-                    <ArrowUpRight className="ml-1.5 h-4 w-4" />
-                  </Link>
-                </Button>
-              </Magnetic>
-            </Reveal>
-            <Reveal delay={240}>
-              <Magnetic>
-                <Button size="lg" variant="outlineLight" asChild>
-                  <Link href="#portfolio">
-                    <PlayCircle className="mr-1.5 h-4 w-4" />
-                    View Our Work
-                  </Link>
-                </Button>
-              </Magnetic>
-            </Reveal>
+                  <div
+                    className="flex animate-float items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 bg-ink/90 px-3 py-1.5 shadow-xl backdrop-blur-xl"
+                    style={{ animationDelay: badge.floatDelay }}
+                  >
+                    <span className="text-sm leading-none">{badge.emoji}</span>
+                    <span className="text-[11px] font-medium text-white/80">{badge.label}</span>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
-
-          <Reveal delay={300}>
-            <p className="mt-8 text-sm text-white/40">
-              Serving businesses worldwide • USA &amp; India registered
-            </p>
-          </Reveal>
         </div>
       </section>
-
-      {/* Floating premium homepage mockup — bleeds up into the dark hero */}
-      <div className="container relative -mt-24 sm:-mt-32">
-        <Reveal delay={280} scale>
-          <MockupChrome floating className="mx-auto max-w-5xl" url="yourbusiness.com">
-            <PremiumHomepageMockup />
-          </MockupChrome>
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            An original, illustrative homepage mockup — not a real client site or stock template.
-          </p>
-        </Reveal>
-      </div>
 
       {/* 2. Why Choose GrowVibe */}
       <section className="py-20 sm:py-24">
@@ -1345,9 +1462,9 @@ export default function WebsiteDesignPage() {
       </section>
 
       {/* 15. Sticky Mobile CTA — mobile-only. Sits at z-30, deliberately
-          lower than the AI chat launcher (z-40) and the Crisp launcher
-          (very high z-index by default), so both always render above it and
-          stay fully visible and clickable — never covered. */}
+          lower than the AI chat launcher and the WhatsApp floating button
+          (both z-40), so both always render above it and stay fully
+          visible and clickable — never covered. */}
       <div
         className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card/95 px-4 py-3 shadow-[0_-8px_24px_rgba(0,0,0,0.08)] backdrop-blur-lg sm:hidden"
         style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}

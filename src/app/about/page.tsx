@@ -46,15 +46,15 @@ const VALUES = [
 ];
 
 const STATS = [
-  { label: "Year founded", value: 2018, format: false },
-  { label: "Brands served", value: 200, suffix: "+" },
-  { label: "Team members", value: 35 },
+  { label: "Year founded", value: 2022, format: false },
+  { label: "Brands served", value: 100, suffix: "+" },
+  { label: "Team members", value: 5 },
   { label: "Industries served", value: 15, suffix: "+" },
 ];
 
 const TEAM = [
   {
-    name: "Alex Rivera",
+    name: "Price K",
     role: "Founder & CEO",
     bio: "15 years in performance marketing, previously led growth at two venture-backed startups.",
   },
@@ -89,10 +89,10 @@ export default function AboutPage() {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
               GrowVibe is a modern website development and AI solutions
-              company founded in 2018. We build premium websites, custom
+              company founded in 2022. We build premium websites, custom
               web applications, CRM systems, AI-powered business solutions,
               and digital growth strategies that help businesses scale
-              online. Today we partner with 200+ brands across e-commerce,
+              online. Today we partner with 100+ brands across e-commerce,
               SaaS, and local services.
             </p>
           </Reveal>

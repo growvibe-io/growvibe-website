@@ -68,6 +68,7 @@ const SERVICES_MENU = [
 const NAV_LINKS: { href: string; label: string; menu?: MenuKey }[] = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services", menu: "services" },
+  { href: "/pricing-australia", label: "Pricing" },
   { href: "/work", label: "Portfolio" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { LogoMark } from "@/components/logo-mark";
-import { SITE_PHONE } from "@/lib/site-config";
+import { SITE_PHONE, SITE_PHONE_INDIA } from "@/lib/site-config";
 
 const FOOTER_LINKS = [
   {
@@ -77,6 +77,14 @@ export function Footer() {
                   className="transition-colors hover:text-white"
                 >
                   hello@growvibe.io
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE_PHONE_INDIA.href}
+                  className="transition-colors hover:text-white"
+                >
+                  {SITE_PHONE_INDIA.display}
                 </a>
               </li>
               <li>

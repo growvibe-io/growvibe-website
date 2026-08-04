@@ -6,7 +6,8 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Cursor } from "@/components/cursor";
 import { AiChatWidget } from "@/components/ai-chat-widget";
-import { CrispChat } from "@/components/crisp-chat";
+import { WhatsAppFloatingButton } from "@/components/whatsapp-floating-button";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import { SITE_PHONE } from "@/lib/site-config";
 
 const inter = Inter({
@@ -111,11 +112,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <Cursor />
+        <GoogleAnalytics />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
         <AiChatWidget />
-        <CrispChat />
+        <WhatsAppFloatingButton />
       </body>
     </html>
   );

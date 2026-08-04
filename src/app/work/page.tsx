@@ -9,6 +9,8 @@ import { Stagger, StaggerItem } from "@/components/stagger";
 import { Magnetic } from "@/components/magnetic";
 import { SectionHeading } from "@/components/section-heading";
 import { CaseStudyCard } from "@/components/case-study-card";
+import { LiveProjectCard } from "@/components/live-project-card";
+import { LightboxProvider, type LightboxImage } from "@/components/lightbox-provider";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -52,6 +54,47 @@ const PROJECTS = [
   },
 ];
 
+// Real client and product websites — actual screenshots, not illustrated
+// mockups (see /public/portfolio-screenshots). Each one is honestly labeled
+// via its badge (Live Website / Concept Project / Client Project).
+const LIVE_PROJECTS = [
+  {
+    id: "goldchase-advisory",
+    category: "FINANCIAL ADVISORY",
+    title: "GoldChase Advisory",
+    description:
+      "A premium corporate website designed for a luxury real estate investment advisory firm. Built with a modern, elegant interface, premium branding and a strong focus on lead generation and client trust.",
+    badge: "Live Website",
+    image: "/portfolio-screenshots/goldchase-advisory.jpg",
+    url: undefined as string | undefined,
+  },
+  {
+    id: "novax-crypto-platform",
+    category: "WEB APPLICATION",
+    title: "NovaX Crypto Platform",
+    description:
+      "A modern cryptocurrency web application featuring live market data, portfolio tracking, responsive dashboards and a premium trading interface designed for speed and usability.",
+    badge: "Concept Project",
+    image: "/portfolio-screenshots/novax-crypto-platform.jpg",
+    url: undefined as string | undefined,
+  },
+  {
+    id: "qikfox-browser-platform",
+    category: "SOFTWARE",
+    title: "QikFox Browser Platform",
+    description:
+      "A modern product website designed to showcase browser technology with a clean user experience, product features, platform downloads and conversion-focused landing pages.",
+    badge: "Client Project",
+    image: "/portfolio-screenshots/qikfox-browser.jpg",
+    url: "qikfox.com",
+  },
+];
+
+const LIVE_PROJECT_IMAGES: LightboxImage[] = LIVE_PROJECTS.map((p) => ({
+  src: p.image,
+  alt: p.title,
+}));
+
 export default function WorkPage() {
   return (
     <>
@@ -82,6 +125,21 @@ export default function WorkPage() {
             </StaggerItem>
           ))}
         </Stagger>
+
+        <LightboxProvider>
+          <Stagger className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {LIVE_PROJECTS.map((project, i) => (
+              <StaggerItem key={project.id}>
+                <LiveProjectCard
+                  {...project}
+                  imageAlt={project.title}
+                  lightboxImages={LIVE_PROJECT_IMAGES}
+                  lightboxIndex={i}
+                />
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </LightboxProvider>
       </section>
 
       <section className="container pb-24">

@@ -89,6 +89,10 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-3px)" },
         },
+        shine: {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "200% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -98,6 +102,7 @@ const config: Config = {
         "blob-slower": "blob-move 26s ease-in-out infinite",
         float: "float 6s ease-in-out infinite",
         "float-icon": "float-icon 4s ease-in-out infinite",
+        shine: "shine 5s linear infinite",
       },
     },
   },

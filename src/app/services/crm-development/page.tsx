@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowUpRight,
-  PlayCircle,
   Sparkles,
   HeartPulse,
   Building2,
@@ -58,17 +57,18 @@ import { Magnetic } from "@/components/magnetic";
 import { SectionHeading } from "@/components/section-heading";
 import { GradientMesh } from "@/components/gradient-mesh";
 import { AnimatedCounter } from "@/components/animated-counter";
+import { CrmDemoPicker } from "@/components/crm-demo-picker";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { ServiceCard } from "@/components/services/service-card";
 import { BrowserFrame } from "@/components/browser-frame";
 import { LightboxProvider, type LightboxImage } from "@/components/lightbox-provider";
 import type { ServiceItem } from "@/lib/services-data";
 
-// GrowVibe's own live CRM demo, deployed separately from the marketing site.
 // Every screenshot on this page (see /public/crm-screenshots) is a real
-// capture from this same live app — not a mockup or stock illustration.
-const CRM_DEMO_URL = "https://growvibe-crm.vercel.app";
-
+// capture from the live General CRM demo — not a mockup or stock
+// illustration. The live demo links themselves are handled by
+// <CrmDemoPicker /> (src/components/crm-demo-picker.tsx), which now offers
+// both the General CRM and the new Subcontractor CRM.
 export const metadata: Metadata = {
   title: "CRM Development",
   description:
@@ -539,6 +539,12 @@ const PROCESS_STEPS = [
   },
 ];
 
+const CRM_PRICING_POINTS = [
+  "50% to begin, 50% on approval",
+  "You own 100% of the code",
+  "60 days free support after launch",
+];
+
 const FAQ_ITEMS = [
   {
     question: "Can you build a CRM specific to our industry?",
@@ -563,7 +569,7 @@ const FAQ_ITEMS = [
   {
     question: "What does the \"Explore the Live CRM Demo\" button show me?",
     answer:
-      "It opens a fully working CRM — dashboard, leads, pipeline, tasks, and reports, with real AI features running on live demo data — that you can click through yourself right now. When you're ready, request a free consultation and we'll build one around your industry.",
+      "It lets you pick between two fully working CRMs — a General CRM (dashboard, leads, pipeline, tasks, and reports) and a Subcontractor CRM (tenders, jobs, variations, progress claims, and retention), both with real AI features running on live demo data, that you can click through yourself right now. When you're ready, request a free consultation and we'll build one around your industry.",
   },
   {
     question: "How long does a custom CRM take to build?",
@@ -718,19 +724,12 @@ export default function CrmDevelopmentPage() {
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Reveal delay={100}>
-              <Magnetic>
-                <Button
-                  size="lg"
-                  variant="light"
-                  asChild
-                  className="shadow-[0_0_0_0_rgba(28,160,102,0)] transition-shadow duration-300 hover:shadow-[0_0_24px_4px_rgba(28,160,102,0.35)]"
-                >
-                  <Link href={CRM_DEMO_URL} target="_blank" rel="noopener noreferrer">
-                    <PlayCircle className="mr-1.5 h-4 w-4" />
-                    Explore the Live CRM Demo
-                  </Link>
-                </Button>
-              </Magnetic>
+              <CrmDemoPicker
+                triggerLabel="Explore the Live CRM Demo"
+                size="lg"
+                variant="light"
+                className="shadow-[0_0_0_0_rgba(28,160,102,0)] transition-shadow duration-300 hover:shadow-[0_0_24px_4px_rgba(28,160,102,0.35)]"
+              />
             </Reveal>
             <Reveal delay={220}>
               <Magnetic>
@@ -1089,6 +1088,63 @@ export default function CrmDevelopmentPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section className="py-20 sm:py-24">
+        <div className="container">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Pricing"
+              title="Custom CRM pricing"
+              description="No quote forms to find out if we're in your budget."
+              align="center"
+              className="mx-auto"
+            />
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="mx-auto mt-14 max-w-2xl">
+              <Card className="relative overflow-hidden border-primary/30 p-8 text-center sm:p-12">
+                <div className="absolute inset-0 bg-dot-grid opacity-[0.05]" />
+                <div className="relative">
+                  <Badge variant="outline" className="border-primary/40 text-primary">
+                    Custom CRM
+                  </Badge>
+                  <p className="mt-6 font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
+                    From A$9,000
+                  </p>
+                  <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                    Fixed price, agreed in writing before we start. Typical build
+                    time 8-10 weeks.
+                  </p>
+
+                  <ul className="mx-auto mt-8 flex flex-col items-center gap-3 text-left sm:flex-row sm:justify-center sm:gap-8">
+                    {CRM_PRICING_POINTS.map((point) => (
+                      <li key={point} className="flex items-center gap-2 text-sm">
+                        <Check className="h-4 w-4 shrink-0 text-primary" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="mt-8 text-xs text-muted-foreground">
+                    Final price depends on your features and integrations.
+                  </p>
+
+                  <Magnetic className="mt-6">
+                    <Button size="lg" asChild>
+                      <Link href="/pricing-australia">
+                        See full pricing
+                        <ArrowUpRight className="ml-1.5 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </Magnetic>
+                </div>
+              </Card>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="bg-secondary/40 py-20 sm:py-24">
         <div className="container">
@@ -1113,25 +1169,18 @@ export default function CrmDevelopmentPage() {
                 Let&apos;s build your custom CRM
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-white/60">
-                GrowVibe works with clients across the United States and
-                worldwide. Experience the AI CRM yourself, or request a free
+                GrowVibe works with clients across Australia, the United States
+                and worldwide. Experience the AI CRM yourself, or request a free
                 consultation and we&apos;ll get back to you with a clear,
                 custom plan.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Magnetic>
-                  <Button
-                    size="lg"
-                    variant="light"
-                    asChild
-                    className="shadow-[0_0_0_0_rgba(28,160,102,0)] transition-shadow duration-300 hover:shadow-[0_0_24px_4px_rgba(28,160,102,0.35)]"
-                  >
-                    <Link href={CRM_DEMO_URL} target="_blank" rel="noopener noreferrer">
-                      <PlayCircle className="mr-1.5 h-4 w-4" />
-                      Experience the AI CRM
-                    </Link>
-                  </Button>
-                </Magnetic>
+                <CrmDemoPicker
+                  triggerLabel="Experience the AI CRM"
+                  size="lg"
+                  variant="light"
+                  className="shadow-[0_0_0_0_rgba(28,160,102,0)] transition-shadow duration-300 hover:shadow-[0_0_24px_4px_rgba(28,160,102,0.35)]"
+                />
                 <Magnetic>
                   <Button size="lg" variant="outlineLight" asChild>
                     <Link href="/contact">

@@ -3,18 +3,18 @@
 import { MessageCircle } from "lucide-react";
 
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { openCrispChat } from "@/components/crisp-chat";
+import { openWhatsAppChat } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 /**
- * "Talk to Our Live Team" — opens the existing Crisp chat widget. Needs its
- * own small Client Component because attaching an onClick handler requires a
+ * "Chat on WhatsApp" — opens a WhatsApp chat with GrowVibe. Needs its own
+ * small Client Component because attaching an onClick handler requires a
  * client boundary; the pages that use this (e.g. /website-design) are Server
  * Components that export page-level metadata, so the handler can't live
  * inline in the page itself.
  */
 export function LiveChatCtaButton({
-  label = "Talk to Our Live Team",
+  label = "Chat on WhatsApp",
   className,
   variant = "outlineLight",
   size = "lg",
@@ -29,7 +29,7 @@ export function LiveChatCtaButton({
       type="button"
       variant={variant}
       size={size}
-      onClick={() => openCrispChat()}
+      onClick={() => openWhatsAppChat()}
       data-track="live-chat-click"
       className={cn(className)}
     >

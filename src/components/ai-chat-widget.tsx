@@ -6,8 +6,8 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Bot, Send, X, Loader2, Sparkles, MessageCircle, ArrowUpRight, Phone } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { openCrispChat } from "@/components/crisp-chat";
-import { SITE_PHONE } from "@/lib/site-config";
+import { openWhatsAppChat } from "@/lib/whatsapp";
+import { SITE_PHONE_INDIA } from "@/lib/site-config";
 
 type ContactCtaLevel = "contact" | "phone";
 
@@ -16,7 +16,7 @@ interface ChatMessage {
   content: string;
   // Set when this reply calls for a contact/consultation next step — renders
   // real contact buttons below it instead of the model writing its own
-  // (unclickable) link text. "contact" = Talk to Our Live Team + Request a
+  // (unclickable) link text. "contact" = Chat on WhatsApp + Request a
   // Free Consultation. "phone" = the same two, plus a Call Us button, for
   // replies specifically about GrowVibe's phone number or contact details.
   ctaLevel?: ContactCtaLevel;
@@ -281,22 +281,26 @@ export function AiChatWidget() {
                     <div className="mr-auto flex w-full max-w-[85%] flex-col gap-2">
                       {m.ctaLevel === "phone" && (
                         <a
-                          href={SITE_PHONE.href}
+                          href={SITE_PHONE_INDIA.href}
                           data-cursor="hover"
                           className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/20 px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
                         >
                           <Phone className="h-4 w-4" />
-                          Call Us — {SITE_PHONE.display}
+                          Call Us — {SITE_PHONE_INDIA.display}
                         </a>
                       )}
                       <button
                         type="button"
-                        onClick={() => openCrispChat()}
+                        onClick={() =>
+                          openWhatsAppChat(
+                            "Hi GrowVibe! I was chatting with your AI assistant and would like to talk to your team."
+                          )
+                        }
                         data-cursor="hover"
                         className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98]"
                       >
                         <MessageCircle className="h-4 w-4" />
-                        Talk to Our Live Team
+                        Chat on WhatsApp
                       </button>
                       <Link
                         href="/contact"

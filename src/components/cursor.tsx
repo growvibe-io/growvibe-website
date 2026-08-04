@@ -12,13 +12,14 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
  * touch devices are completely unaffected and keep their native behavior.
  */
 // Third-party widgets that render their UI in an isolated iframe/shadow
-// root (Crisp being the one currently on this site). Once the pointer is
-// over one of these, the page stops receiving mousemove events entirely —
+// root steal mousemove events entirely while the pointer is over them —
 // our custom dot would just freeze in place at the last known position
 // instead of tracking the real cursor, while the native cursor is still
 // suppressed everywhere else on the page. Rather than leave a frozen or
 // invisible pointer, we fully step aside (native cursor + no custom dot)
-// whenever the pointer is anywhere over one of these containers.
+// whenever the pointer is anywhere over one of these containers. Nothing
+// on the site currently matches this (WhatsApp is a plain link, no
+// iframe), but it's kept as a safety net for any future embedded widget.
 const ISOLATED_WIDGET_SELECTOR = '#crisp-chatbox, [id^="crisp-"], [class*="crisp-client"]';
 
 export function Cursor() {

@@ -1,16 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { Loader2, CheckCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-type Status = "idle" | "submitting" | "success" | "error";
+type Status = "idle" | "submitting" | "error";
 
 export function ContactForm() {
+  const router = useRouter();
   const [status, setStatus] = React.useState<Status>("idle");
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
@@ -41,34 +43,19 @@ export function ContactForm() {
       const result = await res.json().catch(() => ({ ok: false }));
 
       if (res.ok && result.ok) {
-        setStatus("success");
         form.reset();
-      } else {
-        setErrorMessage(
-          typeof result.error === "string" ? result.error : "Something went wrong. Please try again."
-        );
-        setStatus("error");
+        router.push("/thank-you-enquiry");
+        return;
       }
+
+      setErrorMessage(
+        typeof result.error === "string" ? result.error : "Something went wrong. Please try again."
+      );
+      setStatus("error");
     } catch {
       setErrorMessage("Something went wrong. Please try again.");
       setStatus("error");
     }
-  }
-
-  if (status === "success") {
-    return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-secondary/40 px-8 py-16 text-center">
-        <CheckCircle2 className="h-12 w-12 text-primary" />
-        <h3 className="mt-4 text-xl font-semibold">Message sent!</h3>
-        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-          Thanks for reaching out. A member of our team will get back to you
-          within one business day.
-        </p>
-        <Button className="mt-6" variant="outline" onClick={() => setStatus("idle")}>
-          Send another message
-        </Button>
-      </div>
-    );
   }
 
   return (
