@@ -34,7 +34,12 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink text-white">
       <div className="container py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+        {/* md:grid-cols-5 (not 4): the logo block spans 2 columns, plus
+            Company + Services + Get in touch = 5 column-slots total. With
+            grid-cols-4 those 5 slots overflowed a single row and "Get in
+            touch" wrapped onto its own line below the logo instead of
+            sitting beside Services. */}
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-5">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center">

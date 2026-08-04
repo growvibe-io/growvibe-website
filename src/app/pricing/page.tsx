@@ -83,6 +83,7 @@ const HOW_IT_WORKS = [
 const STARTING_POINTS: {
   icon: typeof Globe2;
   title: string;
+  price: string;
   description: string;
   href: string;
   cta: string;
@@ -90,6 +91,7 @@ const STARTING_POINTS: {
   {
     icon: Globe2,
     title: "Website Design & Development",
+    price: "Custom quote",
     description:
       "Custom websites, e-commerce stores, and landing pages — priced around your pages, features, and integrations.",
     href: "/website-design",
@@ -98,13 +100,15 @@ const STARTING_POINTS: {
   {
     icon: LayoutDashboard,
     title: "CRM Development",
-    description: "Custom, AI-powered CRM systems, from A$9,000 fixed price — the one service where we do publish a starting point.",
+    price: "From A$9,000",
+    description: "Custom, AI-powered CRM systems — the one service where we do publish a starting point.",
     href: "/services/crm-development",
     cta: "See CRM pricing",
   },
   {
     icon: Bot,
     title: "AI Solutions & Automation",
+    price: "Custom quote",
     description:
       "Chatbots, workflow automation, and AI features added to a new or existing site — scoped around what you actually need.",
     href: "/services#ai-automation",
@@ -278,8 +282,19 @@ export default function PricingPage() {
                 className="flex h-full flex-col border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
               >
                 <CardContent className="flex h-full flex-col p-0">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-md bg-accent text-accent-foreground">
-                    <item.icon className="h-5 w-5" />
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-md bg-accent text-accent-foreground">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <span
+                      className={
+                        item.price === "Custom quote"
+                          ? "shrink-0 rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground"
+                          : "shrink-0 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+                      }
+                    >
+                      {item.price}
+                    </span>
                   </div>
                   <h3 className="mt-4 font-heading text-lg font-semibold">
                     {item.title}
