@@ -35,15 +35,18 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink text-white">
       <div className="container py-16">
-        {/* Explicit fr-based columns rather than a plain grid-cols-N +
-            col-span combo: the logo/description block only needs to be
-            somewhat wider than the link columns, not a full 2x column
-            share — using 4 unequal columns (instead of a wider column
-            spanning across a 5-column grid) keeps the left block narrower
-            and pulls Company/Services/Get in touch in closer, instead of
-            leaving a wide gap of unused column width between them. */}
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.15fr_0.85fr_0.85fr_0.85fr] md:gap-8">
-          <div>
+        {/* Flexbox, not a proportional grid: fr-based grid columns force
+            every column to the SAME allocated width regardless of how
+            much of it the content actually uses, which is what made the
+            gap after short columns (Company) look huge and the gap after
+            wide columns (Services) look small — the gaps were only equal
+            in raw column width, not in visible whitespace. Flex items
+            size to their own content by default, so a single `gap` value
+            reads as the same visible space everywhere, and the columns
+            naturally sit closer together on the left instead of being
+            stretched across the full row. */}
+        <div className="flex flex-col gap-10 md:flex-row md:flex-wrap md:items-start md:gap-x-16 md:gap-y-10">
+          <div className="md:shrink-0">
             <Link href="/" className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center">
                 <LogoMark className="h-9 w-9" animate={false} />
@@ -70,7 +73,7 @@ export function Footer() {
           </div>
 
           {FOOTER_LINKS.map((col) => (
-            <div key={col.title}>
+            <div key={col.title} className="md:shrink-0">
               {/* h3, not h4: the last heading in each page's <main> content
                   is an h2 (or an h3 nested under one), so this footer must
                   continue at h3 to keep the document's heading order
@@ -93,7 +96,7 @@ export function Footer() {
             </div>
           ))}
 
-          <div>
+          <div className="md:shrink-0">
             <h3 className="text-sm font-semibold text-white">Get in touch</h3>
             <ul className="mt-4 space-y-3 text-sm text-white/50">
               <li>
