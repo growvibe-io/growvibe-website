@@ -41,10 +41,21 @@ const KEYWORDS = [
   "E-commerce Stores",
 ];
 
+// Slide-up only — deliberately NOT animating opacity from 0 here. Framer
+// Motion renders the "hidden" variant's inline styles into the server HTML
+// (this is a "use client" component), so an opacity:0 initial state means
+// the hero's H1/subheading/paragraph are literally invisible pixels until
+// React hydrates, Framer Motion's effect fires, and the animation runs.
+// On a throttled mobile CPU that chain is exactly what PageSpeed Insights
+// measured as a ~2.3s+ "Element render delay" for the hero paragraph (the
+// page's Largest Contentful Paint element) — mobile LCP was 6.3s vs 1.5s on
+// desktop. A translateY-only entrance still paints real, visible content on
+// the very first frame (transforms don't hide anything), so LCP/FCP are no
+// longer gated behind JS, while the content still visibly settles into
+// place for the same "premium" feel.
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { y: 20 },
   show: (delay = 0) => ({
-    opacity: 1,
     y: 0,
     transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] },
   }),
