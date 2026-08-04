@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { LogoMark } from "@/components/logo-mark";
+import { Button } from "@/components/ui/button";
 import { SITE_PHONE, SITE_PHONE_INDIA } from "@/lib/site-config";
 
 const FOOTER_LINKS = [
@@ -34,13 +35,15 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink text-white">
       <div className="container py-16">
-        {/* md:grid-cols-5 (not 4): the logo block spans 2 columns, plus
-            Company + Services + Get in touch = 5 column-slots total. With
-            grid-cols-4 those 5 slots overflowed a single row and "Get in
-            touch" wrapped onto its own line below the logo instead of
-            sitting beside Services. */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-5">
-          <div className="md:col-span-2">
+        {/* Explicit fr-based columns rather than a plain grid-cols-N +
+            col-span combo: the logo/description block only needs to be
+            somewhat wider than the link columns, not a full 2x column
+            share — using 4 unequal columns (instead of a wider column
+            spanning across a 5-column grid) keeps the left block narrower
+            and pulls Company/Services/Get in touch in closer, instead of
+            leaving a wide gap of unused column width between them. */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.15fr_0.85fr_0.85fr_0.85fr] md:gap-8">
+          <div>
             <Link href="/" className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center">
                 <LogoMark className="h-9 w-9" animate={false} />
@@ -55,6 +58,15 @@ export function Footer() {
               backed by the SEO, Google Ads, Meta Ads, and content marketing
               that help them grow.
             </p>
+            <p className="mt-4 text-xs font-medium tracking-wide text-white/35">
+              USA &amp; India Registered • Serving Worldwide
+            </p>
+            <Button asChild variant="light" size="sm" className="mt-6">
+              <Link href="/contact">
+                Start Your Project
+                <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
+              </Link>
+            </Button>
           </div>
 
           {FOOTER_LINKS.map((col) => (
