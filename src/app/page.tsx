@@ -349,31 +349,12 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Core services */}
-      <section id="services" className="container scroll-mt-28 pt-16 pb-28">
-        <Reveal>
-          <SectionHeading
-            eyebrow="What we do"
-            title="Website Development, AI Solutions & Digital Growth"
-            description="Six core capabilities, run by specialists who obsess over your results as much as you do. Explore the full breakdown on our services page."
-          />
-        </Reveal>
-
-        <div className="mt-14">
-          <ServiceShowcase items={SERVICES_SHOWCASE} />
-        </div>
-
-        <Reveal>
-          <div className="mt-4 flex justify-center">
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/services">
-                View All Services
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </Reveal>
-      </section>
+      {/* Core services — split-screen sticky-stack showcase, cards left /
+          description right (mirrors AiSolutionsShowcase below, which is
+          description left / cards right). Section id, container, heading,
+          and CTA now live inside ServiceShowcase itself, same as
+          AiSolutionsShowcase owns its own. */}
+      <ServiceShowcase items={SERVICES_SHOWCASE} />
 
       {/* AI Solutions — split-screen sticky-left / stacked-scroll-right showcase */}
       <AiSolutionsShowcase items={AI_SOLUTIONS} />

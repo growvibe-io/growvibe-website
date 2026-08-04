@@ -2,20 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import {
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  animate,
-  useReducedMotion,
-  type PanInfo,
-} from "framer-motion";
-import {
-  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   ArrowUp,
-  MoveHorizontal,
   Home,
   BarChart3,
   Users,
@@ -46,6 +37,9 @@ import {
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/magnetic";
+import { Reveal } from "@/components/reveal";
 import {
   DeviceFrame,
   MiniAreaChart,
@@ -68,10 +62,6 @@ export interface ServiceShowcaseItem {
   href: string;
   preview: ServicePreview;
 }
-
-// Gap between slides, in px — the single source of truth for scroll math
-// (arrow buttons, drag bounds, active-dot detection all read this).
-const GAP = 24;
 
 const mockupVariants = {
   rest: { y: 0 },
@@ -635,204 +625,139 @@ function ServiceMockup({ variant }: { variant: ServicePreview }) {
   );
 }
 
-export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
+/**
+ * A single stacked service card. Same visual design as before (device
+ * mockup, category badge, title, description, tags, Learn More) — only the
+ * container behavior changed. On desktop each card is `position: sticky`
+ * with the same `top` offset, so later cards slide up and settle over
+ * earlier ones as the visitor scrolls, exactly like AiCard in
+ * ai-solutions-showcase.tsx. This is driven entirely by normal document
+ * scroll and CSS sticky positioning — no drag, no wheel listener, no
+ * scroll-jacking, so vertical page scroll is never intercepted.
+ */
+function ServiceCard({
+  item,
+  index,
+  isLast,
+}: {
+  item: ServiceShowcaseItem;
+  index: number;
+  isLast: boolean;
+}) {
   const shouldReduceMotion = useReducedMotion();
-  const viewportRef = React.useRef<HTMLDivElement>(null);
-  const trackRef = React.useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const [index, setIndex] = React.useState(0);
-  const [bounds, setBounds] = React.useState({ min: 0, step: 0 });
-
-  const measure = React.useCallback(() => {
-    const viewport = viewportRef.current;
-    const track = trackRef.current;
-    const slide = track?.querySelector<HTMLElement>("[data-slide]");
-    if (!viewport || !track || !slide) return;
-    const slideWidth = slide.getBoundingClientRect().width;
-    const step = slideWidth + GAP;
-    const trackWidth = items.length * step - GAP;
-    const min = Math.min(0, viewport.clientWidth - trackWidth);
-    setBounds({ min, step });
-  }, [items.length]);
-
-  React.useLayoutEffect(() => {
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, [measure]);
-
-  useMotionValueEvent(x, "change", (latest) => {
-    if (!bounds.step) return;
-    const idx = Math.round(-latest / bounds.step);
-    setIndex(Math.min(items.length - 1, Math.max(0, idx)));
-  });
-
-  const goTo = React.useCallback(
-    (i: number) => {
-      const clamped = Math.min(items.length - 1, Math.max(0, i));
-      const target = Math.max(bounds.min, -clamped * bounds.step);
-      animate(x, target, shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 32 });
-    },
-    [bounds, items.length, shouldReduceMotion, x]
-  );
-
-  // No wheel listener here on purpose. This section previously hijacked
-  // vertical mouse-wheel/trackpad scrolling and converted it into
-  // horizontal slide movement (via preventDefault() on the wheel event),
-  // which made it impossible to scroll down past this section without
-  // first fighting the carousel. Horizontal movement is available through
-  // drag (mouse and touch, via the `drag="x"` below), the Previous/Next
-  // arrow buttons, and the progress dots — never through hijacking the
-  // page's own vertical scroll.
-  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const step = bounds.step || 1;
-    const projected = x.get() + info.velocity.x * 0.2;
-    const newIndex = Math.round(-projected / step);
-    goTo(newIndex);
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      goTo(index + 1);
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      goTo(index - 1);
-    }
-  };
-
-  const atStart = index <= 0;
-  const atEnd = index >= items.length - 1;
-  const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <div className="relative">
-      <div className="mb-4 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-        <MoveHorizontal className="h-3.5 w-3.5" />
-        Drag or use the arrows to explore
-      </div>
-
-      <div ref={viewportRef} className="overflow-hidden">
-        <motion.div
-          ref={trackRef}
-          role="region"
-          aria-label="Our services"
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-          drag="x"
-          dragConstraints={{ left: bounds.min, right: 0 }}
-          dragElastic={0.05}
-          dragMomentum={false}
-          onDragEnd={handleDragEnd}
-          style={{ x, touchAction: "pan-y" }}
-          className="flex cursor-grab gap-6 pb-2 pt-1 active:cursor-grabbing focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    <motion.div
+      initial={shouldReduceMotion ? undefined : { opacity: 0.85, scale: 0.98, y: 24 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      style={{ zIndex: index + 1 }}
+      className={!isLast ? "mb-6 sm:mb-8 lg:sticky lg:top-[120px]" : "lg:sticky lg:top-[120px]"}
+    >
+      <motion.div initial="rest" whileHover="hover" animate="rest">
+        <Link
+          href={item.href}
+          data-cursor="hover"
+          className="group block select-none"
         >
-          {items.map((item) => (
-            <div
-              key={item.title}
-              data-slide
-              role="group"
-              aria-roledescription="slide"
-              aria-label={item.title}
-              className="w-[88vw] flex-shrink-0 sm:w-[82vw] lg:w-[75vw] lg:max-w-[900px]"
+          <motion.div
+            variants={cardVariants}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col rounded-2xl border border-border bg-card p-3 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl sm:p-4 lg:h-[650px]"
+          >
+            <motion.div
+              variants={mockupVariants}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="h-[230px] w-full sm:h-[300px] lg:h-[350px]"
             >
-              <motion.div initial="rest" whileHover="hover" animate="rest" className="h-full">
-                <Link
-                  href={item.href}
-                  draggable={false}
-                  onDragStart={(e) => e.preventDefault()}
-                  data-cursor="hover"
-                  className="group block h-full select-none"
-                >
-                  <motion.div
-                    variants={cardVariants}
-                    transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="flex h-full flex-col rounded-2xl border border-border bg-card p-3 shadow-sm transition-shadow duration-300 group-hover:shadow-xl sm:p-4 lg:h-[650px]"
+              <ServiceMockup variant={item.preview} />
+            </motion.div>
+
+            <div className="flex flex-1 flex-col overflow-hidden px-1 pt-[14px] sm:px-2">
+              <Badge variant="accent" className="w-fit">
+                {item.category}
+              </Badge>
+              <h3 className="mt-[14px] font-heading text-lg font-semibold tracking-tight sm:text-xl lg:text-2xl">
+                {item.title}
+              </h3>
+              <p className="mt-[14px] line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
+              <div className="mt-[18px] flex flex-wrap gap-2">
+                {item.tags.slice(0, 4).map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
                   >
-                    <motion.div
-                      variants={mockupVariants}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="h-[230px] w-full sm:h-[300px] lg:h-[350px]"
-                    >
-                      <ServiceMockup variant={item.preview} />
-                    </motion.div>
-
-                    <div className="flex flex-1 flex-col overflow-hidden px-1 pt-[14px] sm:px-2">
-                      <Badge variant="accent" className="w-fit">
-                        {item.category}
-                      </Badge>
-                      <h3 className="mt-[14px] font-heading text-lg font-semibold tracking-tight sm:text-xl lg:text-2xl">
-                        {item.title}
-                      </h3>
-                      <p className="mt-[14px] line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                        {item.description}
-                      </p>
-                      <div className="mt-[18px] flex flex-wrap gap-2">
-                        {item.tags.slice(0, 4).map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <span className="mt-[20px] inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary">
-                        Learn More
-                        <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </span>
-                    </div>
-                  </motion.div>
-                </Link>
-              </motion.div>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <span className="mt-[20px] inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary">
+                Learn More
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </span>
             </div>
-          ))}
-        </motion.div>
-      </div>
+          </motion.div>
+        </Link>
+      </motion.div>
+    </motion.div>
+  );
+}
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <span className="font-heading text-sm font-medium tabular-nums text-muted-foreground">
-          {pad(index + 1)} / {pad(items.length)}
-        </span>
+/**
+ * Split-screen "What We Do" section: stacked service cards on the left that
+ * slide up and take each other's place as the visitor scrolls, alongside a
+ * sticky description column (eyebrow, heading, copy, CTA) on the right.
+ * Same split-screen / sticky-stack pattern as AiSolutionsShowcase below it
+ * on the homepage, mirrored left-to-right (cards left, description right
+ * here; description left, cards right there) — built entirely with CSS
+ * sticky positioning and normal document scroll, so the page always
+ * continues scrolling naturally into the next section.
+ */
+export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
+  return (
+    <section id="services" className="scroll-mt-28 py-20 sm:py-28">
+      <div className="container">
+        {/* flex-col + order below `lg`: the description reads first on
+            mobile/tablet (matching AiSolutionsShowcase's natural mobile
+            order), even though its DOM position stays second so the `lg:`
+            grid can put it on the right, cards on the left, on desktop. */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[58%_42%] lg:items-start lg:gap-x-12 xl:gap-x-16">
+          <div className="order-2 lg:order-none">
+            {items.map((item, i) => (
+              <ServiceCard key={item.title} item={item} index={i} isLast={i === items.length - 1} />
+            ))}
+          </div>
 
-        <div className="flex items-center gap-2">
-          {items.map((item, i) => (
-            <button
-              key={item.title}
-              type="button"
-              aria-label={`Go to ${item.title}`}
-              onClick={() => goTo(i)}
-              data-cursor="hover"
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? "w-6 bg-primary" : "w-1.5 bg-border hover:bg-muted-foreground/40"
-              }`}
-            />
-          ))}
+          <div className="order-1 mt-0 mb-10 lg:sticky lg:top-[120px] lg:order-none lg:mb-0 lg:mt-0">
+            <Reveal>
+              <div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                What we do
+              </div>
+              <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                Website Development, AI Solutions &amp; Digital Growth
+              </h2>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
+                Six core capabilities, run by specialists who obsess over your results as much as
+                you do. Explore the full breakdown on our services page.
+              </p>
+              <div className="mt-8">
+                <Magnetic>
+                  <Button variant="default" size="lg" asChild>
+                    <Link href="/services">
+                      View All Services
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </Magnetic>
+              </div>
+            </Reveal>
+          </div>
         </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            aria-label="Previous service"
-            onClick={() => goTo(index - 1)}
-            disabled={atStart}
-            data-cursor="hover"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-ink transition-all duration-200 hover:border-ink/30 hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-30"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            aria-label="Next service"
-            onClick={() => goTo(index + 1)}
-            disabled={atEnd}
-            data-cursor="hover"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-ink transition-all duration-200 hover:border-ink/30 hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-30"
-          >
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
       </div>
-    </div>
+    </section>
   );
 }
