@@ -676,28 +676,14 @@ export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
     [bounds, items.length, shouldReduceMotion, x]
   );
 
-  // Wheel handoff: only take over the event (and preventDefault) when the
-  // slider can actually move further in the requested direction. At either
-  // end we simply do nothing, so the browser's normal vertical page scroll
-  // continues immediately — no need to move the cursor off the section.
-  // This also handles genuine horizontal trackpad gestures the same way.
-  React.useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-    const onWheel = (e: WheelEvent) => {
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      const current = x.get();
-      const canGoForward = current > bounds.min + 1;
-      const canGoBackward = current < -1;
-      if ((delta > 0 && canGoForward) || (delta < 0 && canGoBackward)) {
-        e.preventDefault();
-        x.set(Math.min(0, Math.max(bounds.min, current - delta)));
-      }
-    };
-    viewport.addEventListener("wheel", onWheel, { passive: false });
-    return () => viewport.removeEventListener("wheel", onWheel);
-  }, [bounds, x]);
-
+  // No wheel listener here on purpose. This section previously hijacked
+  // vertical mouse-wheel/trackpad scrolling and converted it into
+  // horizontal slide movement (via preventDefault() on the wheel event),
+  // which made it impossible to scroll down past this section without
+  // first fighting the carousel. Horizontal movement is available through
+  // drag (mouse and touch, via the `drag="x"` below), the Previous/Next
+  // arrow buttons, and the progress dots — never through hijacking the
+  // page's own vertical scroll.
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const step = bounds.step || 1;
     const projected = x.get() + info.velocity.x * 0.2;
