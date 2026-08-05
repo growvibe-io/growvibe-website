@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { LogoMark } from "@/components/logo-mark";
 import { Button } from "@/components/ui/button";
-import { SITE_PHONE, SITE_PHONE_INDIA } from "@/lib/site-config";
+import { SITE_PHONE_INDIA } from "@/lib/site-config";
 
 // Every href below points at a real page or a real, existing anchor id —
 // none of these are invented. Service anchors (id="...") come straight
@@ -133,14 +133,6 @@ export function Footer() {
                   className="transition-colors hover:text-white"
                 >
                   hello@growvibe.io
-                </a>
-              </li>
-              <li>
-                <a
-                  href={SITE_PHONE.href}
-                  className="transition-colors hover:text-white"
-                >
-                  {SITE_PHONE.display}
                 </a>
               </li>
               <li>

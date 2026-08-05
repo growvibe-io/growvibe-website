@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/reveal";
 import { ContactForm } from "@/components/contact-form";
-import { SITE_PHONE, SITE_PHONE_INDIA } from "@/lib/site-config";
+import { SITE_PHONE_INDIA } from "@/lib/site-config";
 
 const siteUrl = "https://growvibe.io";
 
@@ -54,15 +54,9 @@ const CONTACT_DETAILS: {
   },
   {
     icon: Phone,
-    label: "Phone (India)",
+    label: "Phone",
     value: SITE_PHONE_INDIA.display,
     href: SITE_PHONE_INDIA.href,
-  },
-  {
-    icon: Phone,
-    label: "Phone (US)",
-    value: SITE_PHONE.display,
-    href: SITE_PHONE.href,
   },
   {
     icon: MapPin,
