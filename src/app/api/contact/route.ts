@@ -94,12 +94,13 @@ export async function POST(req: NextRequest) {
 
   const name = clean(body.name, MAX_FIELD_LENGTH);
   const email = clean(body.email, MAX_FIELD_LENGTH);
+  const phone = clean(body.phone, MAX_FIELD_LENGTH);
   const company = clean(body.company, MAX_FIELD_LENGTH);
   const city = clean(body.city, MAX_FIELD_LENGTH);
   const message = clean(body.message, MAX_MESSAGE_LENGTH);
 
-  if (!name || !email || !message) {
-    return NextResponse.json({ ok: false, error: "Please fill in your name, email, and message." }, { status: 400 });
+  if (!name || !email || !phone || !message) {
+    return NextResponse.json({ ok: false, error: "Please fill in your name, email, phone number, and message." }, { status: 400 });
   }
   if (!EMAIL_PATTERN.test(email)) {
     return NextResponse.json({ ok: false, error: "Please enter a valid email address." }, { status: 400 });
@@ -109,6 +110,7 @@ export async function POST(req: NextRequest) {
   const text = [
     `Name: ${name}`,
     `Email: ${email}`,
+    `Phone: ${phone}`,
     company && `Company: ${company}`,
     city && `City: ${city}`,
     "",
@@ -121,6 +123,7 @@ export async function POST(req: NextRequest) {
     <div style="font-family: sans-serif; font-size: 14px; color: #111;">
       <p><strong>Name:</strong> ${escapeHtml(name)}</p>
       <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
       ${company ? `<p><strong>Company:</strong> ${escapeHtml(company)}</p>` : ""}
       ${city ? `<p><strong>City:</strong> ${escapeHtml(city)}</p>` : ""}
       <p><strong>Message:</strong></p>

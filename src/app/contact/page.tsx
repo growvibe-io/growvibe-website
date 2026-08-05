@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, Phone, Clock, type LucideIcon } from "lucide-react";
+import { Mail, Phone, Clock, MapPin, type LucideIcon } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -39,8 +39,7 @@ const breadcrumbSchema = {
   ],
 };
 
-// Only real, verifiable contact details — no placeholder street address.
-// Add one back here once GrowVibe has a published office address.
+// Only real, verifiable contact details.
 const CONTACT_DETAILS: {
   icon: LucideIcon;
   label: string;
@@ -64,6 +63,11 @@ const CONTACT_DETAILS: {
     label: "Phone (US)",
     value: SITE_PHONE.display,
     href: SITE_PHONE.href,
+  },
+  {
+    icon: MapPin,
+    label: "Office Address",
+    value: "B29 Nawada Road Dwarka Mor Delhi, 110059 India",
   },
   {
     icon: Clock,

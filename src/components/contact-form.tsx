@@ -26,6 +26,7 @@ export function ContactForm() {
     const payload = {
       name: data.get("name"),
       email: data.get("email"),
+      phone: data.get("phone"),
       company: data.get("company"),
       city: data.get("city"),
       message: data.get("message"),
@@ -70,39 +71,35 @@ export function ContactForm() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="name">Full name</Label>
-          <Input id="name" name="name" placeholder="Jane Doe" required />
+          <Input id="name" name="name" required />
         </div>
         <div className="space-y-2">
           <Label htmlFor="email">Work email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="jane@company.com"
-            required
-          />
+          <Input id="email" name="email" type="email" required />
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="company">Company</Label>
-          <Input id="company" name="company" placeholder="Company name" />
+          <Label htmlFor="phone">Phone number</Label>
+          <Input id="phone" name="phone" type="tel" required />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="city">City</Label>
-          <Input id="city" name="city" placeholder="e.g. San Francisco" />
+          <Label htmlFor="company">Company</Label>
+          <Input id="company" name="company" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="city">Current city</Label>
+          <Input id="city" name="city" />
         </div>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="message">How can we help?</Label>
-        <Textarea
-          id="message"
-          name="message"
-          placeholder="Tell us a bit about your business and goals..."
-          required
-        />
+        <Textarea id="message" name="message" required />
       </div>
 
       <Button
