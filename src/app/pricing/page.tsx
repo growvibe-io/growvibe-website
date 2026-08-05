@@ -466,7 +466,6 @@ export default function PricingPage() {
             {PROJECT_TIERS.map((tier) => (
               <StaggerItem key={tier.key}>
                 <Card
-                  data-cursor="hover"
                   className={cn(
                     "relative flex h-full flex-col overflow-hidden border-white/60 bg-white/60 p-7 shadow-xl shadow-black/[0.03] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:bg-white/75 hover:shadow-2xl",
                     tier.featured
@@ -534,7 +533,6 @@ export default function PricingPage() {
             {CARE_PLANS_IN.map((plan) => (
               <StaggerItem key={plan.title}>
                 <Card
-                  data-cursor="hover"
                   className="flex h-full flex-col border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <h3 className="font-heading text-lg font-semibold">{plan.title}</h3>
@@ -587,7 +585,6 @@ export default function PricingPage() {
             {ADD_ONS_IN.map((addon) => (
               <StaggerItem key={addon.title}>
                 <Card
-                  data-cursor="hover"
                   className="flex h-full flex-col border-border/70 p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <h3 className="font-heading text-base font-semibold">{addon.title}</h3>
@@ -654,7 +651,6 @@ export default function PricingPage() {
             {HOW_IT_WORKS.map((step, i) => (
               <StaggerItem key={step.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-md bg-primary/10 text-primary">
@@ -689,7 +685,6 @@ export default function PricingPage() {
           {STARTING_POINTS.map((item) => (
             <StaggerItem key={item.title}>
               <Card
-                data-cursor="hover"
                 className="flex h-full flex-col border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
               >
                 <CardContent className="flex h-full flex-col p-0">
@@ -704,7 +699,6 @@ export default function PricingPage() {
                   </p>
                   <Link
                     href={item.href}
-                    data-cursor="hover"
                     className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80"
                   >
                     {item.cta}

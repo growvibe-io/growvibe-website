@@ -44,7 +44,6 @@ export function BrowserFrame({
       type="button"
       onClick={() => openAt(images, index)}
       aria-label={`View larger screenshot: ${alt}`}
-      data-cursor="hover"
       className={cn(
         "group relative block w-full overflow-hidden rounded-2xl border border-border/70 bg-card text-left shadow-xl shadow-ink/[0.08] ring-1 ring-ink/[0.03] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         floating && "animate-float",

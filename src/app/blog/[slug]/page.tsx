@@ -179,7 +179,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <Reveal>
             <Link
               href="/blog"
-              data-cursor="hover"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
@@ -236,7 +235,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                     <Link
                       key={service.href}
                       href={service.href}
-                      data-cursor="hover"
                       className="inline-flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:text-primary"
                     >
                       {service.label}
@@ -289,7 +287,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                     <Link
                       key={relatedPost.slug}
                       href={`/blog/${relatedPost.slug}`}
-                      data-cursor="hover"
                     >
                       <Card className="group h-full border-border/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-lg">
                         <Badge variant="outline" className="mb-3">

@@ -16,7 +16,6 @@ export function WhatsAppFloatingButton() {
       href={getWhatsAppUrl(FLOAT_MESSAGE)}
       target="_blank"
       rel="noopener noreferrer"
-      data-cursor="hover"
       data-track="whatsapp-float-click"
       aria-label="Chat with GrowVibe on WhatsApp"
       className="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-transform hover:scale-105 sm:bottom-6 sm:left-6"

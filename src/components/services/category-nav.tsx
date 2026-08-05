@@ -80,7 +80,6 @@ export function CategoryNav({ categories }: CategoryNavProps) {
               <a
                 key={category.slug}
                 href={`#${category.slug}`}
-                data-cursor="hover"
                 className={cn(
                   "flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200",
                   active === category.slug

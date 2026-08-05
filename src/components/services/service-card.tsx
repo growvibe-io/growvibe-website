@@ -20,7 +20,6 @@ export function ServiceCard({ service, dark = false }: ServiceCardProps) {
   return (
     <div
       id={service.id}
-      data-cursor="hover"
       className={cn(
         "group relative flex h-full scroll-mt-44 flex-col overflow-hidden rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl",
         dark
@@ -83,7 +82,6 @@ export function ServiceCard({ service, dark = false }: ServiceCardProps) {
       {service.href && (
         <Link
           href={service.href}
-          data-cursor="hover"
           className={cn(
             "relative mt-5 inline-flex items-center gap-1 text-sm font-medium transition-colors",
             dark ? "text-primary hover:text-primary/80" : "text-primary hover:text-primary/80"

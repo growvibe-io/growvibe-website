@@ -4,7 +4,6 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Cursor } from "@/components/cursor";
 import { AiChatWidget } from "@/components/ai-chat-widget";
 import { WhatsAppFloatingButton } from "@/components/whatsapp-floating-button";
 import { GoogleAnalytics } from "@/components/google-analytics";
@@ -111,7 +110,6 @@ export default function RootLayout({
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        <Cursor />
         <GoogleAnalytics />
         <Navbar />
         <main className="flex-1">{children}</main>

@@ -132,7 +132,6 @@ function AiCard({
 
       <Link
         href={item.href ?? "/contact"}
-        data-cursor="hover"
         className={cn(
           "group relative mt-auto inline-flex w-fit items-center gap-1.5 pt-6 text-sm font-medium transition-colors",
           isDark ? "text-white hover:text-primary" : "text-ink hover:text-primary"

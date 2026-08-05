@@ -49,7 +49,6 @@ export function LiveProjectCard({
   return (
     <Card
       id={id}
-      data-cursor="hover"
       className="group relative flex h-full scroll-mt-28 flex-col overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-ink/20 hover:shadow-xl"
     >
       <div className="h-[210px] border-b border-border p-2 sm:h-[230px] sm:p-2.5">
@@ -57,7 +56,6 @@ export function LiveProjectCard({
           type="button"
           onClick={open}
           aria-label={`View full preview: ${title}`}
-          data-cursor="hover"
           className="flex h-full w-full flex-col overflow-hidden rounded-lg border-[5px] border-ink bg-background text-left sm:rounded-xl sm:border-[7px]"
         >
           <div className="flex flex-shrink-0 items-center gap-1.5 bg-ink px-2.5 py-1.5">
@@ -106,7 +104,6 @@ export function LiveProjectCard({
             <button
               type="button"
               onClick={open}
-              data-cursor="hover"
               className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80"
             >
               View Full Preview

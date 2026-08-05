@@ -663,7 +663,6 @@ function ServiceCard({
       <motion.div initial="rest" whileHover="hover" animate="rest">
         <Link
           href={item.href}
-          data-cursor="hover"
           className="group block select-none"
         >
           <motion.div
@@ -830,7 +829,6 @@ export function ServiceShowcase({ items }: { items: ServiceShowcaseItem[] }) {
                     </p>
                     <Link
                       href={activeItem.href}
-                      data-cursor="hover"
                       className="group mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary"
                     >
                       Learn More

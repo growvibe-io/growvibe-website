@@ -98,13 +98,6 @@
   }
 }
 
-/* Custom cursor: only ever engaged on precise pointers (see Cursor component),
-   which also toggles this class — never affects touch/mobile. */
-html.custom-cursor-active,
-html.custom-cursor-active * {
-  cursor: none !important;
-}
-
 /* Respect users who've asked for less motion: kill the continuous background
    loops (blobs, marquee) while leaving discrete, purposeful transitions intact. */
 @media (prefers-reduced-motion: reduce) {

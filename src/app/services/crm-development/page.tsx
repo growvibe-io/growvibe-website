@@ -890,7 +890,6 @@ export default function CrmDevelopmentPage() {
             {AI_FEATURES.map((item, i) => (
               <StaggerItem key={item.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <CardContent className="pt-8">
@@ -927,7 +926,6 @@ export default function CrmDevelopmentPage() {
             {CORE_CAPABILITIES.map((item, i) => (
               <StaggerItem key={item.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 text-center transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <CardContent className="pt-8">
@@ -1017,7 +1015,6 @@ export default function CrmDevelopmentPage() {
             {INTEGRATIONS.map((item, i) => (
               <StaggerItem key={item.name}>
                 <div
-                  data-cursor="hover"
                   className="flex h-full flex-col items-center justify-center gap-3 rounded-2xl border border-border/70 bg-card p-6 text-center transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div
@@ -1050,7 +1047,6 @@ export default function CrmDevelopmentPage() {
             {WHY_GROWVIBE.map((item, i) => (
               <StaggerItem key={item.title}>
                 <div
-                  data-cursor="hover"
                   className="h-full rounded-2xl border border-border/70 bg-card p-6 transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div
@@ -1085,7 +1081,6 @@ export default function CrmDevelopmentPage() {
             {PROCESS_STEPS.map((step) => (
               <StaggerItem key={step.number}>
                 <div
-                  data-cursor="hover"
                   className="h-full rounded-2xl border border-border/70 p-6 transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div className="font-heading text-3xl font-semibold text-primary">

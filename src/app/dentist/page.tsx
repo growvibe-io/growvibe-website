@@ -455,7 +455,6 @@ export default function DentistPage() {
             {WHY_GROWVIBE.map((item, i) => (
               <StaggerItem key={item.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <CardContent className="pt-7">
@@ -494,7 +493,6 @@ export default function DentistPage() {
             {PROCESS_STEPS.map((step, i) => (
               <StaggerItem key={step.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-sm font-bold text-primary-foreground">
@@ -526,7 +524,6 @@ export default function DentistPage() {
             {CONCEPT_PROJECTS.map(({ key, category, title, description, Preview }) => (
               <StaggerItem key={key}>
                 <Card
-                  data-cursor="hover"
                   className="group relative flex h-full flex-col overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-ink/20 hover:shadow-xl"
                 >
                   <Preview />
@@ -553,7 +550,6 @@ export default function DentistPage() {
             <div className="mt-10 text-center">
               <Link
                 href="/work"
-                data-cursor="hover"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
                 View Full Portfolio

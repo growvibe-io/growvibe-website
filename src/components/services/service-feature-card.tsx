@@ -19,7 +19,6 @@ export function ServiceFeatureCard({ service, dark = false }: ServiceFeatureCard
   return (
     <div
       id={service.id}
-      data-cursor="hover"
       className={cn(
         "group relative flex h-full scroll-mt-44 flex-col overflow-hidden rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl sm:p-10",
         dark

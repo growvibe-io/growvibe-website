@@ -26,6 +26,7 @@ import { FaqAccordion } from "@/components/faq-accordion";
 import { LightboxProvider, type LightboxImage } from "@/components/lightbox-provider";
 import { LiveProjectCard } from "@/components/live-project-card";
 import { DeviceFrame, Photo } from "@/components/mockup-ui";
+import { LiveChatCtaButton } from "@/components/live-chat-cta-button";
 
 const siteUrl = "https://growvibe.io";
 
@@ -465,9 +466,7 @@ export default function RealEstatePage() {
                 </Button>
               </Magnetic>
               <Magnetic>
-                <Button size="lg" variant="outlineLight" asChild>
-                  <Link href="#recent-projects">View Our Portfolio</Link>
-                </Button>
+                <LiveChatCtaButton />
               </Magnetic>
             </div>
           </Reveal>
@@ -503,7 +502,6 @@ export default function RealEstatePage() {
             {WHY_GROWVIBE.map((item, i) => (
               <StaggerItem key={item.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <CardContent className="pt-8">
@@ -551,7 +549,6 @@ export default function RealEstatePage() {
 
               <StaggerItem>
                 <Card
-                  data-cursor="hover"
                   className="group relative flex h-full flex-col overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-ink/20 hover:shadow-xl"
                 >
                   <PropertyListingsPreview />
@@ -579,7 +576,6 @@ export default function RealEstatePage() {
 
               <StaggerItem>
                 <Card
-                  data-cursor="hover"
                   className="group relative flex h-full flex-col overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-ink/20 hover:shadow-xl"
                 >
                   <PropertyMapSearchPreview />
@@ -611,7 +607,6 @@ export default function RealEstatePage() {
             <div className="mt-10 text-center">
               <Link
                 href="/work"
-                data-cursor="hover"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
                 View Full Portfolio
@@ -639,7 +634,6 @@ export default function RealEstatePage() {
             {FEATURES.map((item) => (
               <StaggerItem key={item.title}>
                 <div
-                  data-cursor="hover"
                   className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-xl"
                 >
                   <div

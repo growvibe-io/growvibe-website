@@ -110,7 +110,6 @@ export function CrmDemoPicker({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
-                  data-cursor="hover"
                   className="group flex h-full flex-col rounded-xl border border-border/70 p-5 transition-all duration-[250ms] ease-out hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-md bg-accent text-accent-foreground">

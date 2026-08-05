@@ -894,7 +894,6 @@ export default function WebsiteDesignPage() {
             {WHY_CHOOSE.map((item, i) => (
               <StaggerItem key={item.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <CardContent className="pt-8">
@@ -933,7 +932,6 @@ export default function WebsiteDesignPage() {
             {WEBSITE_TYPES.map((item) => (
               <StaggerItem key={item.title}>
                 <div
-                  data-cursor="hover"
                   className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-xl"
                 >
                   <div
@@ -1013,7 +1011,6 @@ export default function WebsiteDesignPage() {
             {PERFORMANCE_OUTCOMES.map((item, i) => (
               <StaggerItem key={item.title}>
                 <div
-                  data-cursor="hover"
                   className="h-full rounded-2xl border border-border/70 bg-card p-6 text-center transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div
@@ -1095,7 +1092,6 @@ export default function WebsiteDesignPage() {
               <div className="mt-5">
                 <Link
                   href="/#ai-solutions"
-                  data-cursor="hover"
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors hover:text-white"
                 >
                   See our full AI Solutions &amp; automation showcase
@@ -1170,7 +1166,6 @@ export default function WebsiteDesignPage() {
             {WEBSITE_FEATURES.map((item, i) => (
               <StaggerItem key={item.label}>
                 <div
-                  data-cursor="hover"
                   className="flex h-full flex-col items-center justify-center gap-3 rounded-2xl border border-border/70 bg-card p-5 text-center transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div
@@ -1207,7 +1202,6 @@ export default function WebsiteDesignPage() {
               {PROCESS_STEPS.map((step) => (
                 <StaggerItem key={step.number}>
                   <div
-                    data-cursor="hover"
                     className="relative h-full rounded-2xl border border-border/70 bg-card p-6 transition-all duration-[250ms] ease-out hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                   >
                     <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-ink text-xs font-semibold text-white">
@@ -1274,7 +1268,6 @@ export default function WebsiteDesignPage() {
                   </ul>
                   <Link
                     href="/services/crm-development"
-                    data-cursor="hover"
                     className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80"
                   >
                     View Project
@@ -1299,7 +1292,6 @@ export default function WebsiteDesignPage() {
             <div className="mt-10 text-center">
               <Link
                 href="/work"
-                data-cursor="hover"
                 data-track="portfolio-project-click"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
@@ -1449,7 +1441,6 @@ export default function WebsiteDesignPage() {
               </div>
               <a
                 href={SITE_PHONE.href}
-                data-cursor="hover"
                 data-track="phone-number-click"
                 className="mt-6 inline-flex items-center gap-1.5 text-sm text-white/50 transition-colors hover:text-white"
               >
@@ -1471,7 +1462,6 @@ export default function WebsiteDesignPage() {
       >
         <Link
           href="/contact?intent=quote"
-          data-cursor="hover"
           data-track="consultation-cta-click"
           className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary text-sm font-semibold text-primary-foreground shadow-sm transition-transform active:scale-[0.98]"
         >

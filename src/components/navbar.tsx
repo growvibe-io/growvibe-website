@@ -166,7 +166,7 @@ export function Navbar() {
       />
 
       <div className="container relative z-10 flex h-full items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5" data-cursor="hover">
+        <Link href="/" className="flex items-center gap-2.5">
           <motion.span
             whileHover={{ rotate: 8, scale: 1.08 }}
             transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -206,7 +206,6 @@ export function Navbar() {
               >
                 <Link
                   href={link.href}
-                  data-cursor="hover"
                   className={cn(
                     "relative flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors",
                     isActive ? "text-white" : "text-white/60 hover:text-white"
@@ -251,7 +250,6 @@ export function Navbar() {
                                 <li key={item.href}>
                                   <Link
                                     href={item.href}
-                                    data-cursor="hover"
                                     onClick={(e) => {
                                       setOpenMenu(null);
                                       handleInPageHashClick(e, item.href, pathname ?? "/");
@@ -269,7 +267,6 @@ export function Navbar() {
                       <div className="mt-4 border-t border-white/10 pt-3">
                         <Link
                           href="/services"
-                          data-cursor="hover"
                           onClick={() => setOpenMenu(null)}
                           className="flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white"
                         >

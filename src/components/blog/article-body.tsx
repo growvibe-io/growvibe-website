@@ -37,7 +37,6 @@ function renderInlineLinks(text: string): React.ReactNode {
         <Link
           key={key++}
           href={href}
-          data-cursor="hover"
           className="font-medium text-primary underline decoration-primary/30 underline-offset-2 transition-colors hover:decoration-primary"
         >
           {label}
@@ -48,7 +47,6 @@ function renderInlineLinks(text: string): React.ReactNode {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          data-cursor="hover"
           className="font-medium text-primary underline decoration-primary/30 underline-offset-2 transition-colors hover:decoration-primary"
         >
           {label}

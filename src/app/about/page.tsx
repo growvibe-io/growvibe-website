@@ -186,7 +186,6 @@ export default function AboutPage() {
             {VALUES.map((value) => (
               <StaggerItem key={value.title}>
                 <Card
-                  data-cursor="hover"
                   className="h-full border-border/70 text-center transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md"
                 >
                   <CardContent className="pt-8">
@@ -220,7 +219,6 @@ export default function AboutPage() {
           {TEAM.map((member) => (
             <StaggerItem key={member.name}>
               <Card
-                data-cursor="hover"
                 className="h-full border-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <CardContent className="pt-8 text-center">

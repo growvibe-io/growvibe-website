@@ -166,7 +166,6 @@ export function AiChatWidget() {
       <motion.button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        data-cursor="hover"
         data-track="ai-chat-engagement"
         aria-label={open ? "Close AI assistant" : "Open AI assistant"}
         initial={{ opacity: 0, scale: 0.8 }}
@@ -194,7 +193,6 @@ export function AiChatWidget() {
             role="button"
             tabIndex={0}
             aria-label="Open GrowVibe AI assistant"
-            data-cursor="hover"
             onClick={() => setOpen(true)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -214,7 +212,6 @@ export function AiChatWidget() {
                 e.stopPropagation();
                 dismissNudge();
               }}
-              data-cursor="hover"
               aria-label="Dismiss"
               className="absolute right-2.5 top-2.5 flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
@@ -282,7 +279,6 @@ export function AiChatWidget() {
                       {m.ctaLevel === "phone" && (
                         <a
                           href={SITE_PHONE_INDIA.href}
-                          data-cursor="hover"
                           className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/20 px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
                         >
                           <Phone className="h-4 w-4" />
@@ -296,7 +292,6 @@ export function AiChatWidget() {
                             "Hi GrowVibe! I was chatting with your AI assistant and would like to talk to your team."
                           )
                         }
-                        data-cursor="hover"
                         className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98]"
                       >
                         <MessageCircle className="h-4 w-4" />
@@ -304,7 +299,6 @@ export function AiChatWidget() {
                       </button>
                       <Link
                         href="/contact"
-                        data-cursor="hover"
                         onClick={() => setOpen(false)}
                         className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-ink/20 px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
                       >
@@ -339,7 +333,6 @@ export function AiChatWidget() {
                   type="button"
                   onClick={() => void sendMessage()}
                   disabled={loading || !input.trim()}
-                  data-cursor="hover"
                   aria-label="Send message"
                   className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-ink text-white transition-opacity disabled:opacity-30"
                 >

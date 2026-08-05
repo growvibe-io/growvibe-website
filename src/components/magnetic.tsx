@@ -14,8 +14,7 @@ interface MagneticProps {
 
 /**
  * Wraps a button/link so it gently pulls toward the cursor when hovered,
- * and springs back to rest on mouse-leave. Pairs with the custom Cursor
- * component via data-cursor="hover".
+ * and springs back to rest on mouse-leave.
  */
 export function Magnetic({ children, className, strength = 0.35 }: MagneticProps) {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -44,7 +43,6 @@ export function Magnetic({ children, className, strength = 0.35 }: MagneticProps
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
       className={cn("inline-block", className)}
-      data-cursor="hover"
     >
       {children}
     </motion.div>

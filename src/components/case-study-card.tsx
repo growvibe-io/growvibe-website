@@ -240,7 +240,6 @@ export function CaseStudyCard({
   return (
     <Card
       id={id}
-      data-cursor="hover"
       className="group relative flex h-full scroll-mt-28 flex-col overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-ink/20 hover:shadow-xl"
     >
       <ProjectPreview variant={preview} />
@@ -274,7 +273,6 @@ export function CaseStudyCard({
               {viewHref && (
                 <Link
                   href={viewHref}
-                  data-cursor="hover"
                   className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80"
                 >
                   View Project

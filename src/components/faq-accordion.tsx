@@ -36,7 +36,6 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
               aria-controls={`faq-answer-${index}`}
               onClick={() => setOpenIndex(isOpen ? null : index)}
               className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-              data-cursor="hover"
             >
               <h3 className="font-heading text-base font-semibold sm:text-lg">
                 {item.question}

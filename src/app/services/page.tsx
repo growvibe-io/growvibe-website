@@ -182,7 +182,6 @@ export default function ServicesPage() {
                 <div className="mt-8 text-center">
                   <Link
                     href="/#ai-solutions"
-                    data-cursor="hover"
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
                   >
                     See the full AI Solutions showcase on our home page

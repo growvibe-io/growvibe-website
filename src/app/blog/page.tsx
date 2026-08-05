@@ -80,7 +80,7 @@ export default function BlogPage() {
           <Stagger className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <StaggerItem key={post.slug}>
-                <Link href={`/blog/${post.slug}`} data-cursor="hover" className="block h-full">
+                <Link href={`/blog/${post.slug}`} className="block h-full">
                   <Card className="group flex h-full flex-col justify-between border-border/70 p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-ink/20 hover:shadow-xl">
                     <div>
                       <Badge variant="outline" className="mb-4">
