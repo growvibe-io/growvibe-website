@@ -5,8 +5,8 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 const FLOAT_MESSAGE = "Hi GrowVibe! I'd like to know more about your services.";
 
 /**
- * Site-wide floating WhatsApp launcher. Sits bottom-left so it never
- * collides with the AI assistant launcher (bottom-right, see
+ * Site-wide floating WhatsApp launcher. Sits bottom-right so it never
+ * collides with the AI assistant launcher (bottom-left, see
  * <AiChatWidget />). A plain external link — no widget script/iframe to
  * load, so it's always available on click.
  */
@@ -18,7 +18,7 @@ export function WhatsAppFloatingButton() {
       rel="noopener noreferrer"
       data-track="whatsapp-float-click"
       aria-label="Chat with GrowVibe on WhatsApp"
-      className="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-transform hover:scale-105 sm:bottom-6 sm:left-6"
+      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-transform hover:scale-105 sm:bottom-6 sm:right-6"
     >
       <svg
         viewBox="0 0 32 32"

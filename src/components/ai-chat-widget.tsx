@@ -171,7 +171,7 @@ export function AiChatWidget() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-xl transition-transform hover:scale-105 sm:bottom-6 sm:right-6"
+        className="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-xl transition-transform hover:scale-105 sm:bottom-6 sm:left-6"
       >
         {open ? <X className="h-5 w-5" /> : <Bot className="h-6 w-6" />}
         {!open && (
@@ -204,7 +204,7 @@ export function AiChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.96 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="group fixed bottom-24 right-5 z-40 w-[calc(100vw-2.5rem)] max-w-[300px] cursor-pointer rounded-2xl border border-border bg-card p-4 text-left shadow-2xl shadow-ink/10 outline-none transition-transform duration-200 ease-out hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:bottom-28 sm:right-6"
+            className="group fixed bottom-24 left-5 z-40 w-[calc(100vw-2.5rem)] max-w-[300px] cursor-pointer rounded-2xl border border-border bg-card p-4 text-left shadow-2xl shadow-ink/10 outline-none transition-transform duration-200 ease-out hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:bottom-28 sm:left-6"
           >
             <button
               type="button"
@@ -245,7 +245,7 @@ export function AiChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-5 z-40 flex h-[70vh] max-h-[560px] w-[calc(100vw-2.5rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:bottom-28 sm:right-6"
+            className="fixed bottom-24 left-5 z-40 flex h-[70vh] max-h-[560px] w-[calc(100vw-2.5rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl sm:bottom-28 sm:left-6"
           >
             <div className="flex flex-shrink-0 items-center gap-2.5 border-b border-border bg-ink px-4 py-3 text-white">
               <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
